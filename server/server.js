@@ -46,16 +46,17 @@ const allowedOrigins =
         'http://localhost:8080',
       ]
 
-// Debug logging
+// Debug logging (can be removed in production)
 console.log('Environment:', process.env.NODE_ENV)
-console.log('MAIN_SITE_URL:', process.env.MAIN_SITE_URL)
-console.log('ADMIN_DASHBOARD_URL:', process.env.ADMIN_DASHBOARD_URL)
 console.log('Allowed Origins:', allowedOrigins)
 
-// Temporary CORS fix - allow all origins for testing
 app.use(
   cors({
-    origin: true, // Allow all origins temporarily
+    origin: [
+      'https://golden-days-care-dsg1.vercel.app',
+      'https://golden-days-care.vercel.app',
+      ...allowedOrigins
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -75,16 +76,6 @@ app.get('/api/health', (req, res) => {
   })
 })
 
-// Debug endpoint to check environment variables
-app.get('/api/debug', (req, res) => {
-  res.json({
-    environment: process.env.NODE_ENV,
-    mainSiteUrl: process.env.MAIN_SITE_URL,
-    adminDashboardUrl: process.env.ADMIN_DASHBOARD_URL,
-    allowedOrigins: allowedOrigins,
-    origin: req.headers.origin
-  })
-})
 
 // API routes
 app.use('/api/auth', authRoutes)
