@@ -52,20 +52,10 @@ console.log('MAIN_SITE_URL:', process.env.MAIN_SITE_URL)
 console.log('ADMIN_DASHBOARD_URL:', process.env.ADMIN_DASHBOARD_URL)
 console.log('Allowed Origins:', allowedOrigins)
 
+// Temporary CORS fix - allow all origins for testing
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true)
-
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true)
-      } else {
-        console.log('CORS blocked origin:', origin)
-        console.log('Allowed origins:', allowedOrigins)
-        callback(new Error('Not allowed by CORS'))
-      }
-    },
+    origin: true, // Allow all origins temporarily
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
