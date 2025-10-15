@@ -8,6 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+# Explicitly ignore nested node_modules in subprojects
+server/node_modules
+admin-dashboard/node_modules
 dist
 dist-ssr
 *.local
@@ -22,3 +25,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment files
+.env
+.env.*
+server/.env
+server/.env.*
+admin-dashboard/.env
+admin-dashboard/.env.*

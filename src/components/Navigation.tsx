@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Menu, X, Phone, MapPin } from "lucide-react";
-import { cn } from "@/lib/utils";
+import React, { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Menu, X, Phone, MapPin } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   const navItems = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Admissions", href: "/admissions" },
-    { name: "Staff", href: "/staff" },
-    { name: "Testimonials", href: "/testimonials" },
-    { name: "Gallery", href: "/gallery" },
-    { name: "Contact", href: "/contact" },
-  ];
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Services', href: '/services' },
+    { name: 'Admissions', href: '/admissions' },
+    { name: 'Staff', href: '/staff' },
+    { name: 'Testimonials', href: '/testimonials' },
+    { name: 'Gallery', href: '/gallery' },
+    { name: 'Contact', href: '/contact' },
+  ]
 
   return (
     <header className="bg-background shadow-sm border-b border-border sticky top-0 z-50">
@@ -26,11 +26,11 @@ const Navigation = () => {
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
                 <Phone className="h-4 w-4" />
-                <span>(555) 123-4567</span>
+                <span>(913) 271-4783 / (509) 818-7552</span>
               </div>
               <div className="flex items-center gap-1">
                 <MapPin className="h-4 w-4" />
-                <span>123 Care Lane, Peaceful Valley, WA 98001</span>
+                <span>4224 E Prairie Ln Court, Spokane, WA 99223</span>
               </div>
             </div>
             <div className="hidden md:block">
@@ -78,7 +78,11 @@ const Navigation = () => {
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </Button>
           </div>
         </div>
@@ -86,8 +90,8 @@ const Navigation = () => {
         {/* Mobile Navigation */}
         <div
           className={cn(
-            "lg:hidden border-t border-border",
-            isOpen ? "block" : "hidden"
+            'lg:hidden border-t border-border',
+            isOpen ? 'block' : 'hidden'
           )}
         >
           <nav className="py-4 space-y-2">
@@ -110,7 +114,7 @@ const Navigation = () => {
         </div>
       </div>
     </header>
-  );
-};
+  )
+}
 
-export default Navigation;
+export default Navigation
