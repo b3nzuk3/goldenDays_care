@@ -33,9 +33,11 @@ app.use('/api/', limiter)
 // CORS configuration
 const allowedOrigins =
   process.env.NODE_ENV === 'production'
-    ? [process.env.MAIN_SITE_URL, process.env.ADMIN_DASHBOARD_URL].filter(
-        Boolean
-      ) // Remove any undefined values
+    ? [
+        process.env.MAIN_SITE_URL,
+        process.env.ADMIN_DASHBOARD_URL,
+        'https://golden-days-care-dsg1.vercel.app', // Temporary hardcode
+      ].filter(Boolean) // Remove any undefined values
     : [
         'http://localhost:3000',
         'http://localhost:3001',
