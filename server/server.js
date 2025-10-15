@@ -57,7 +57,7 @@ app.use(
     origin: function (origin, callback) {
       // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true)
-      
+
       if (allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true)
       } else {
@@ -82,6 +82,17 @@ app.get('/api/health', (req, res) => {
     success: true,
     message: 'Golden Days Admin API is running',
     timestamp: new Date().toISOString(),
+  })
+})
+
+// Debug endpoint to check environment variables
+app.get('/api/debug', (req, res) => {
+  res.json({
+    environment: process.env.NODE_ENV,
+    mainSiteUrl: process.env.MAIN_SITE_URL,
+    adminDashboardUrl: process.env.ADMIN_DASHBOARD_URL,
+    allowedOrigins: allowedOrigins,
+    origin: req.headers.origin
   })
 })
 
