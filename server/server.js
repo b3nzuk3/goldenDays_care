@@ -46,10 +46,29 @@ const allowedOrigins =
         'http://localhost:8080',
       ]
 
+// Debug logging
+console.log('Environment:', process.env.NODE_ENV)
+console.log('MAIN_SITE_URL:', process.env.MAIN_SITE_URL)
+console.log('ADMIN_DASHBOARD_URL:', process.env.ADMIN_DASHBOARD_URL)
+console.log('Allowed Origins:', allowedOrigins)
+
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true)
+      
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true)
+      } else {
+        console.log('CORS blocked origin:', origin)
+        console.log('Allowed origins:', allowedOrigins)
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 )
 
