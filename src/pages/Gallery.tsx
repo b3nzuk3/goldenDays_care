@@ -43,7 +43,9 @@ const Gallery = () => {
 
   const fetchPhotos = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/photos')
+      const baseUrl =
+        import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+      const response = await fetch(`${baseUrl}/photos`)
       const data = await response.json()
       if (data.success) {
         setPhotos(data.data.filter((photo: Photo) => photo.isActive))

@@ -31,18 +31,22 @@ const limiter = rateLimit({
 app.use('/api/', limiter)
 
 // CORS configuration
+const allowedOrigins =
+  process.env.NODE_ENV === 'production'
+    ? [process.env.MAIN_SITE_URL, process.env.ADMIN_DASHBOARD_URL].filter(
+        Boolean
+      ) // Remove any undefined values
+    : [
+        'http://localhost:3000',
+        'http://localhost:3001',
+        'http://localhost:3004',
+        'http://localhost:5173',
+        'http://localhost:8080',
+      ]
+
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === 'production'
-        ? ['https://yourdomain.com'] // Replace with your production domain
-        : [
-            'http://localhost:3000',
-            'http://localhost:3001',
-            'http://localhost:3004',
-            'http://localhost:5173',
-            'http://localhost:8080',
-          ],
+    origin: allowedOrigins,
     credentials: true,
   })
 )
