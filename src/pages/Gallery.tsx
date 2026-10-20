@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Navigation from '@/components/Navigation'
 import PageHero from '@/components/PageHero'
 import { Button } from '@/components/ui/button'
@@ -9,24 +9,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { ZoomIn, Home, Users, Coffee, Gamepad2, Loader2 } from 'lucide-react'
-
-interface Photo {
-  _id: string
-  title: string
-  description: string
-  imageUrl: string
-  category: string
-  isActive: boolean
-  createdAt: string
-}
+import { ZoomIn, Home, Users, Coffee, Bath, Trees } from 'lucide-react'
+import { galleryPhotos, type GalleryPhoto } from '@/data/gallery'
 
 const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState('all')
-  const [photos, setPhotos] = useState<Photo[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
-  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
+  const [selectedPhoto, setSelectedPhoto] = useState<GalleryPhoto | null>(null)
   const photoTrigger = useRef<HTMLButtonElement | null>(null)
 
   const categories = [
@@ -39,56 +27,17 @@ const Gallery = () => {
     },
     { id: 'dining', name: 'Dining', icon: <Coffee className="h-4 w-4" /> },
     {
-      id: 'activities',
-      name: 'Activities',
-      icon: <Gamepad2 className="h-4 w-4" />,
+      id: 'bathrooms',
+      name: 'Bathrooms',
+      icon: <Bath className="h-4 w-4" />,
     },
+    { id: 'outdoors', name: 'Outdoors', icon: <Trees className="h-4 w-4" /> },
   ]
-
-  const fetchPhotos = useCallback(async (signal?: AbortSignal) => {
-    setLoading(true)
-    setError('')
-    setSelectedPhoto(null)
-
-    try {
-      const baseUrl =
-        import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
-      const response = await fetch(`${baseUrl}/photos`, { signal })
-
-      if (!response.ok) {
-        throw new Error(`Photo request failed with status ${response.status}`)
-      }
-
-      const data = await response.json()
-
-      if (!data.success || !Array.isArray(data.data)) {
-        throw new Error('Photo response did not match the expected format')
-      }
-
-      setPhotos(data.data.filter((photo: Photo) => photo.isActive))
-    } catch (fetchError) {
-      if (signal?.aborted) return
-
-      setError("We couldn't load the gallery right now. Please try again.")
-      console.error('Error fetching photos:', fetchError)
-    } finally {
-      if (!signal?.aborted) {
-        setLoading(false)
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    const controller = new AbortController()
-    void fetchPhotos(controller.signal)
-
-    return () => controller.abort()
-  }, [fetchPhotos])
 
   const filteredPhotos =
     activeCategory === 'all'
-      ? photos
-      : photos.filter((photo) => photo.category === activeCategory)
+      ? galleryPhotos
+      : galleryPhotos.filter((photo) => photo.category === activeCategory)
 
   return (
     <div className="editorial-page min-h-screen bg-background">
@@ -96,7 +45,7 @@ const Gallery = () => {
 
       <PageHero
         title="Photo Gallery"
-        description="Take a virtual tour of our beautiful facility and see why families choose Golden Days AFH"
+        description="Step inside Golden Days. Explore the bedrooms, shared spaces, meals, and outdoor corners that make up our home."
       >
         <Button asChild variant="trust" size="lg">
           <a href="/contact#contact-form">Schedule an in-person tour</a>
@@ -130,6 +79,7 @@ const Gallery = () => {
                 >
                   {category.icon}
                   {category.name}
+                  <span className="text-xs opacity-75">{category.id === 'all' ? galleryPhotos.length : galleryPhotos.filter((photo) => photo.category === category.id).length}</span>
                 </Button>
               ))}
             </div>
@@ -138,30 +88,8 @@ const Gallery = () => {
 
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4">
-            {loading ? (
-              <div
-                className="flex items-center justify-center py-16 text-muted-foreground"
-                role="status"
-                aria-live="polite"
-              >
-                <Loader2
-                  className="h-6 w-6 animate-spin text-warm-accent"
-                  aria-hidden="true"
-                />
-                <span className="ml-3 text-base">Loading photos...</span>
-              </div>
-            ) : error ? (
-              <div className="py-16 text-center" role="alert">
-                <p className="mb-5 text-base text-muted-foreground">{error}</p>
-                <Button
-                  type="button"
-                  onClick={() => void fetchPhotos()}
-                  variant="outline"
-                >
-                  Try again
-                </Button>
-              </div>
-            ) : filteredPhotos.length === 0 ? (
+            <p className="mb-6 text-sm text-muted-foreground" role="status" aria-live="polite">{filteredPhotos.length} photos · Select a photo for a closer look.</p>
+            {filteredPhotos.length === 0 ? (
               <div className="py-16 text-center">
                 <p className="text-base text-muted-foreground">
                   No photos are available in this category yet.
@@ -176,7 +104,7 @@ const Gallery = () => {
 
                   return (
                     <button
-                      key={photo._id}
+                      key={photo.id}
                       type="button"
                       onClick={(event) => { photoTrigger.current = event.currentTarget; setSelectedPhoto(photo) }}
                       aria-label={`View ${photo.title}`}
@@ -184,7 +112,11 @@ const Gallery = () => {
                     >
                       <span className="relative block aspect-square overflow-hidden bg-muted">
                         <img
-                          src={photo.imageUrl}
+                          src={photo.thumbnailUrl}
+                          width={photo.width}
+                          height={photo.height}
+                          loading="lazy"
+                          decoding="async"
                           alt={photo.title}
                           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
@@ -245,7 +177,7 @@ const Gallery = () => {
         </section>
 
         {selectedPhoto && (
-          <DialogContent className="max-w-4xl overflow-hidden p-0 sm:rounded-2xl" onCloseAutoFocus={(event) => { event.preventDefault(); photoTrigger.current?.focus() }}>
+          <DialogContent className="max-h-[90dvh] max-w-4xl overflow-y-auto p-0 sm:rounded-2xl" onCloseAutoFocus={(event) => { event.preventDefault(); photoTrigger.current?.focus() }}>
             <div className="bg-background">
               <img
                 src={selectedPhoto.imageUrl}

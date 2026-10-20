@@ -3,7 +3,7 @@ import Navigation from "@/components/Navigation";
 import PageHero from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { Star, Quote } from "lucide-react";
-import heroImage from "@/assets/hero-care-home.jpg";
+import { sitePhotos } from "@/data/site-photos";
 
 const testimonials = [
   {
@@ -89,10 +89,7 @@ const Testimonials = () => {
       <PageHero
         title="What Families Say"
         description="Real stories from families who trust Golden Days AFH with their loved ones' care"
-        image={{
-          src: heroImage,
-          alt: "Comfortable living room at Golden Days Adult Family Home",
-        }}
+        image={sitePhotos.testimonials}
       >
         <div className="flex flex-wrap items-center gap-2" aria-label="4.9 out of 5 stars (127 reviews)">
           <div className="flex gap-1" aria-hidden="true">

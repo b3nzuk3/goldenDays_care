@@ -1,5 +1,35 @@
 # Golden Days AFH Admin Dashboard
 
+## Public investor showcase: photo gallery
+
+The public `/gallery` route currently uses a static, reviewed photo catalog; it does
+not call the photo API or require the backend, database, or admin dashboard. Run
+`bun run dev` for the public site, or `bun run build` and `bun run preview`.
+
+- `src/data/gallery.json`: 36 selected photographs with descriptive captions and dimensions.
+- `public/images/gallery/`: WebP thumbnails (up to 640px) and full views (up to 1800px).
+- `src/data/site-photos.ts`: explicit photo selections for homepage supporting images
+  and About, Services, Admissions, Staff, and Testimonials headers. These share the
+  gallery delivery URL. The original homepage hero is intentionally preserved;
+  Judy's profile uses initials until an identified portrait is supplied.
+- `scripts/prepare-gallery.py`: repeatable conversion from the reviewed 48-JPEG source set.
+  Run `uv run --with pillow python scripts/prepare-gallery.py /home/luffy/goldenCarephotos`.
+  Originals are untouched; generated images omit source EXIF metadata.
+- Selection omits phone screenshots, an apparent duplicate, promotional/miscellaneous
+  images, and photographs of people pending consent. Similar room angles are retained.
+  Owner approval of the selected photos is still required before public publication.
+
+### Future Cloudflare R2 delivery (not connected yet)
+
+Local assets ship with the site, so investor presentations work without external
+storage. When ready, upload the files in `public/images/gallery/` under the same
+names to an R2 bucket and expose them through a public delivery domain. Set
+`VITE_GALLERY_BASE_URL=https://<public-media-domain>/<gallery-prefix>` at build time
+and rebuild. Leave it unset for local assets. Do not put R2 access keys in `VITE_*`.
+This switches image delivery only; uploads, admin management, and backend storage
+migration are separate future work. The existing backend still uses Cloudinary
+and has not been modified for this showcase.
+
 A comprehensive admin dashboard backend for managing photos and scheduled tours for Golden Days Adult Family Home.
 
 ## Features

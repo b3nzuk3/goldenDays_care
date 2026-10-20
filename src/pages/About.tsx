@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import PageHero from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-care-home.jpg";
+import { sitePhotos } from "@/data/site-photos";
 
 const highlights = [
   {
@@ -47,10 +47,7 @@ const About = () => {
       <PageHero
         title="About Golden Days AFH"
         description="Providing compassionate, personalized care in a warm family setting since 2010"
-        image={{
-          src: heroImage,
-          alt: "Comfortable living room at Golden Days Adult Family Home",
-        }}
+        image={sitePhotos.about}
       >
         <Button asChild variant="trust">
           <Link to="/services">Learn About Our Services</Link>

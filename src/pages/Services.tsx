@@ -3,7 +3,7 @@ import Navigation from "@/components/Navigation";
 import PageHero from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { Home, Utensils, Activity, Stethoscope, Users, Clock } from "lucide-react";
-import privateRoomImage from "@/assets/private-room.jpg";
+import { sitePhotos } from "@/data/site-photos";
 
 const services = [
   {
@@ -96,10 +96,7 @@ const Services = () => {
       <PageHero
         title="Our Care Services"
         description="Comprehensive, personalized care services designed around your loved one's unique needs"
-        image={{
-          src: privateRoomImage,
-          alt: "Private room at Golden Days Adult Family Home",
-        }}
+        image={sitePhotos.services}
       >
         <Button asChild variant="trust" size="lg">
           <Link to="/contact#contact-form">Schedule a Tour</Link>

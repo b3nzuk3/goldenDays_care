@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 interface PageHeroProps {
   title: ReactNode
   description?: ReactNode
-  image?: { src: string; alt: string }
+  image?: { src: string; alt: string; width?: number; height?: number }
   children?: ReactNode
   className?: string
 }
@@ -17,7 +17,7 @@ const PageHero = ({ title, description, image, children, className }: PageHeroPr
         {description && <p>{description}</p>}
         {children && <div className="flex flex-wrap items-center gap-4">{children}</div>}
       </div>
-      {image && <img className="page-hero-image" src={image.src} alt={image.alt} width={800} height={600} fetchPriority="high" />}
+      {image && <img className="page-hero-image" src={image.src} alt={image.alt} width={image.width ?? 800} height={image.height ?? 600} fetchPriority="high" />}
     </div>
   </header>
 )

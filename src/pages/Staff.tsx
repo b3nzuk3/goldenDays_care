@@ -3,40 +3,16 @@ import PageHero from "@/components/PageHero";
 import StaffCard from "@/components/StaffCard";
 import { Button } from "@/components/ui/button";
 import { GraduationCap, Heart, Shield, Users } from "lucide-react";
-import careTeamImage from "@/assets/care-team.jpg";
+import { sitePhotos } from "@/data/site-photos";
 
 const staffMembers = [
   {
-    name: "Sarah Johnson",
-    title: "Administrator & RN",
-    credentials: ["RN", "BSN", "15+ years experience"],
-    experience: "15+ years in nursing",
-    bio: "Sarah brings over 15 years of nursing experience to Golden Days AFH. She is passionate about creating a warm, family-like environment where residents thrive.",
-    photo: "/placeholder.svg",
-  },
-  {
-    name: "Michael Chen",
-    title: "Care Coordinator",
-    credentials: ["CNA", "CPR Certified", "8 years experience"],
-    experience: "8 years in care coordination",
-    bio: "Michael specializes in personalized care planning and medication management. His gentle approach helps residents feel comfortable and secure.",
-    photo: "/placeholder.svg",
-  },
-  {
-    name: "Maria Rodriguez",
-    title: "Activities Director",
-    credentials: ["Recreation Therapy Certification"],
-    experience: "6 years in recreational therapy",
-    bio: "Maria designs engaging activities and social programs that keep our residents active, social, and mentally stimulated. She speaks fluent Spanish.",
-    photo: "/placeholder.svg",
-  },
-  {
-    name: "David Thompson",
-    title: "Caregiver",
-    credentials: ["CNA", "First Aid Certified", "6 years experience"],
-    experience: "6 years in caregiving",
-    bio: "David provides compassionate daily care and assistance. His background in physical therapy helps residents maintain their independence and mobility.",
-    photo: "/placeholder.svg",
+    name: "Judy Wanjiru",
+    title: "Home Operator & Registered Nurse",
+    credentials: ["RN", "Master of Science in Health Management"],
+    experience: "Over 20 years of experience in healthcare",
+    bio: "Judy operates Golden Days Adult Family Home and brings over 20 years of healthcare experience. She holds a Master of Science in Health Management and received the 2016 Compassionate Care Award from SCCC. Her approach centers on a family environment where residents are treated with respect, dignity, and compassion.",
+    photo: "",
   },
 ];
 
@@ -104,10 +80,7 @@ const Staff = () => {
       <PageHero
         title="Our Caring Team"
         description="Meet the dedicated professionals who make Golden Days AFH a place where your loved ones thrive"
-        image={{
-          src: careTeamImage,
-          alt: "Our caring professional team at Golden Days Adult Family Home",
-        }}
+        image={sitePhotos.staff}
       >
         <Button asChild variant="trust" size="lg">
           <a href="mailto:goldendaysafh@gmail.com?subject=Join%20Our%20Team">Join Our Team</a>
@@ -145,13 +118,13 @@ const Staff = () => {
           <div className="container mx-auto px-4">
             <div className="mb-10 max-w-2xl">
               <h2 className="mb-4 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-                Meet Our Team
+                Meet Our Home Operator
               </h2>
               <p className="text-lg leading-relaxed text-muted-foreground">
-                Our experienced, licensed professionals are here 24/7 to provide the best possible care
+                Get to know the registered nurse who operates Golden Days Adult Family Home.
               </p>
             </div>
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="max-w-2xl">
               {staffMembers.map((staff) => (
                 <StaffCard
                   key={staff.name}

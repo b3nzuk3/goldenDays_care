@@ -5,7 +5,7 @@ import ContactForm from "@/components/ContactForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Download, Calendar, FileText } from "lucide-react";
-import heroImage from "@/assets/hero-care-home.jpg";
+import { sitePhotos } from "@/data/site-photos";
 
 const checklist = [
   "Complete admission application",
@@ -70,10 +70,7 @@ const Admissions = () => {
       <PageHero
         title="Admissions Process"
         description="Starting your journey with Golden Days AFH is simple. We're here to guide you every step of the way."
-        image={{
-          src: heroImage,
-          alt: "Comfortable living room at Golden Days Adult Family Home",
-        }}
+        image={sitePhotos.admissions}
       >
         <Button asChild variant="trust" size="lg">
           <Link to="/contact#contact-form">Schedule a Tour Today</Link>
