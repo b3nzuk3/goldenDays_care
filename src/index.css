@@ -228,6 +228,47 @@ p a { text-decoration: underline; }
 
 @keyframes hero-arrive { from { clip-path: inset(0 0 7% 0 round 110px 5px 5px 5px); } to { clip-path: inset(0 round 110px 5px 5px 5px); } }
 @media (prefers-reduced-motion: no-preference) { .hero-photo > img { animation: hero-arrive 900ms cubic-bezier(.16,1,.3,1) both; } }
+
+/* Desktop reading scale: enlarge rem-based page copy without changing mobile. */
+@media (min-width: 1024px) {
+  :root { font-size: 112.5%; }
+  body { font-size: 1rem; }
+  .contact-strip { font-size: 14px; }
+  .brand-description { font-size: 10px; letter-spacing: .15em; }
+  .nav-inner { gap: 24px; }
+  .desktop-nav { gap: 18px; }
+  .desktop-nav a { font-size: 16px; font-weight: 500; }
+  .nav-tour { font-size: 16px; }
+
+  .hero-copy > p { font-size: 19px; line-height: 1.75; }
+  .page-hero p { font-size: 20px; line-height: 1.7; }
+  .text-link { font-size: 17px; }
+  .hero-location, .hero-photo figcaption { font-size: 15px; }
+  .reassurance-list > div { font-size: 16px; }
+  .service-entry > p { font-size: 18px; line-height: 1.75; }
+  .service-entry li { font-size: 17px; line-height: 1.7; }
+  .about-photographs figcaption, .visit-layout figcaption { font-size: 14px; }
+  .home-reasons li { font-size: 18px; }
+  .testimonial-layout figcaption, .visit-call { font-size: 16px; }
+  .testimonial-layout small { font-size: 14px; }
+
+  .home-page .inline-flex.text-sm, .editorial-page .inline-flex.text-sm { font-size: 16px; }
+  .editorial-page p.text-sm, .editorial-page li.text-sm { font-size: 17px; line-height: 1.7; }
+  .contact-form label { font-size: 16px; }
+  .contact-form input, .contact-form textarea, .contact-form [role='combobox'] { font-size: 17px; }
+  .contact-form .text-xs { font-size: 14px; }
+  .staff-role { font-size: 18px; }
+  .staff-experience { font-size: 16px; }
+  .staff-credentials li { font-size: 15px; }
+  .staff-bio { font-size: 18px; line-height: 1.75; }
+
+  .site-footer h2 { font-size: 16px; font-weight: 600; }
+  .site-footer p, .site-footer address,
+  .site-footer nav > a, .footer-grid > div > a:not(.brand) { font-size: 16px; }
+  .site-footer .footer-certification,
+  .footer-bottom p, .footer-bottom > a { font-size: 14px; }
+}
+
 @media (max-width: 1279px) {
   .desktop-nav { display: none; }
   .nav-tour { margin-left: auto; }

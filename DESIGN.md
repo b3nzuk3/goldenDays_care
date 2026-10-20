@@ -9,6 +9,7 @@ The public React application (`src/`) uses a warm editorial treatment selected b
 ## Visual system
 
 - **Typography:** self-hosted Lora for headings and editorial quotations; DM Sans for body copy, controls, and navigation. Font files and their SIL Open Font Licenses live in `public/fonts/`. No third-party font requests are needed.
+- **Desktop reading scale:** at 1024px and wider, the root scale is 112.5% (18px at the browser default), with 18px body copy, 19–20px page introductions, 17px service lists, and 16px navigation, form labels, and footer links. Captions and secondary metadata remain smaller at 14–15px. Keep existing mobile typography unchanged and check the full navigation at its 1280px breakpoint when tuning text size.
 - **Palette:** warm cream backgrounds, deep brown foregrounds, a dark terracotta action color, and restrained oatmeal section backgrounds. Semantic CSS tokens live in `src/index.css`. The legacy `trust-blue` token maps to terracotta for compatibility with existing storefront markup.
 - **Structure:** split home hero keeps readable text off people's faces. Border-separated care entries, offset photographic compositions, and a large family quotation replace repeated shadowed card bands. Secondary routes share `PageHero`. The shared footer lives once in `App.tsx`.
 - **Imagery:** reuse the committed care-home, team, and room assets. Avoid introducing fabricated resident or staff portraits. Missing staff photographs use initials, not unrelated stock photographs.
