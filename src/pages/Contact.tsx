@@ -1,8 +1,9 @@
 import React from 'react'
 import Navigation from '@/components/Navigation'
+import PageHero from '@/components/PageHero'
 import ContactForm from '@/components/ContactForm'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import {
   Phone,
   Mail,
@@ -14,247 +15,244 @@ import {
 
 const Contact = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="editorial-page min-h-screen bg-background">
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-soft-gray to-background py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Contact Us
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              We're here to answer your questions and help you find the best
-              care solution for your loved one
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="Contact Us"
+        description="We're here to answer your questions and help you find the best care solution for your loved one"
+      />
 
-      {/* Contact Information & Form */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Info */}
-            <div className="space-y-8">
+      <main>
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+              <div className="space-y-10">
+                <div className="max-w-xl">
+                  <h2 className="mb-5 text-3xl font-bold text-foreground md:text-4xl">
+                    Get in Touch
+                  </h2>
+                  <p className="text-base leading-7 text-muted-foreground md:text-lg">
+                    Ready to learn more about Golden Days AFH? We're available
+                    24/7 to answer your questions and discuss how we can provide
+                    the best care for your loved one.
+                  </p>
+                </div>
+
+                <ul className="divide-y divide-border border-y border-border">
+                  <li className="flex items-start gap-4 py-5">
+                    <span className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-warm-accent/10 text-warm-accent">
+                      <Phone className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <div>
+                      <h3 className="font-semibold text-foreground">Phone</h3>
+                      <div className="mt-1 space-y-1 text-base text-muted-foreground">
+                        <a
+                          href="tel:9132714783"
+                          className="block underline-offset-4 transition-colors hover:text-warm-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        >
+                          Primary: (913) 271-4783
+                        </a>
+                        <a
+                          href="tel:5098187552"
+                          className="block underline-offset-4 transition-colors hover:text-warm-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        >
+                          Secondary: (509) 818-7552
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li className="flex items-start gap-4 py-5">
+                    <span className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-warm-accent/10 text-warm-accent">
+                      <Mail className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <div>
+                      <h3 className="font-semibold text-foreground">Email</h3>
+                      <a
+                        href="mailto:goldendaysafh@gmail.com"
+                        className="mt-1 block text-base text-muted-foreground underline-offset-4 transition-colors hover:text-warm-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      >
+                        goldendaysafh@gmail.com
+                      </a>
+                    </div>
+                  </li>
+
+                  <li className="flex items-start gap-4 py-5">
+                    <span className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-warm-accent/10 text-warm-accent">
+                      <MapPin className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <div>
+                      <h3 className="font-semibold text-foreground">Address</h3>
+                      <address className="mt-1 text-base not-italic leading-6 text-muted-foreground">
+                        4224 E Prairie Ln Court
+                        <br />
+                        Spokane, WA 99223
+                      </address>
+                    </div>
+                  </li>
+
+                  <li className="flex items-start gap-4 py-5">
+                    <span className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-warm-accent/10 text-warm-accent">
+                      <Clock className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <div>
+                      <h3 className="font-semibold text-foreground">Hours</h3>
+                      <div className="mt-1 space-y-1 text-base leading-6 text-muted-foreground">
+                        <p>Office: Monday - Friday, 9 AM - 6 PM</p>
+                        <p>Care: 24/7 Support Available</p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <Button asChild variant="warm" className="sm:flex-1">
+                    <a href="#contact-form">
+                      <Calendar className="h-4 w-4" aria-hidden="true" />
+                      Schedule a tour
+                    </a>
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="sm:flex-1"
+                    disabled
+                    aria-disabled="true"
+                  >
+                    <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                    Live chat unavailable
+                  </Button>
+                </div>
+              </div>
+
+              <div className="lg:pt-2">
+                <ContactForm title="Send Us a Message" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-soft-gray py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="mb-10 max-w-2xl">
+              <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">
+                Visit Our Location
+              </h2>
+              <p className="text-base leading-7 text-muted-foreground md:text-lg">
+                Located in the heart of Peaceful Valley, our facility is easily
+                accessible and close to medical facilities, shopping, and parks
+              </p>
+            </div>
+
+            <div className="flex min-h-64 flex-col items-start justify-between gap-8 rounded-lg border border-border bg-background p-6 sm:flex-row sm:flex-wrap sm:items-center md:p-10">
               <div>
-                <h2 className="text-3xl font-bold text-foreground mb-6">
-                  Get in Touch
-                </h2>
-                <p className="text-muted-foreground mb-8">
-                  Ready to learn more about Golden Days AFH? We're available
-                  24/7 to answer your questions and discuss how we can provide
-                  the best care for your loved one.
+                <h3 className="mb-3 text-2xl font-semibold text-foreground">
+                  Our location
+                </h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  4224 E Prairie Ln Court, Spokane, WA 99223
                 </p>
               </div>
-
-              <div className="space-y-6">
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <Phone className="h-6 w-6 text-warm-accent mt-1" />
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">
-                          Phone
-                        </h3>
-                        <p className="text-muted-foreground">
-                          Primary: (913) 271-4783
-                        </p>
-                        <p className="text-muted-foreground">
-                          Secondary: (509) 818-7552
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <Mail className="h-6 w-6 text-warm-accent mt-1" />
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">
-                          Email
-                        </h3>
-                        <p className="text-muted-foreground">
-                          goldendaysafh@gmail.com
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <MapPin className="h-6 w-6 text-warm-accent mt-1" />
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">
-                          Address
-                        </h3>
-                        <p className="text-muted-foreground">
-                          4224 E Prairie Ln Court
-                        </p>
-                        <p className="text-muted-foreground">
-                          Spokane, WA 99223
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <Clock className="h-6 w-6 text-warm-accent mt-1" />
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">
-                          Hours
-                        </h3>
-                        <p className="text-muted-foreground">
-                          Office: Monday - Friday, 9 AM - 6 PM
-                        </p>
-                        <p className="text-muted-foreground">
-                          Care: 24/7 Support Available
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button variant="trust" className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  Schedule Tour
-                </Button>
-                <Button variant="outline" className="flex items-center gap-2">
-                  <MessageCircle className="h-4 w-4" />
-                  Live Chat
-                </Button>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Send Us a Message</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ContactForm />
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section className="py-16 bg-soft-gray">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Visit Our Location
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Located in the heart of Peaceful Valley, our facility is easily
-              accessible and close to medical facilities, shopping, and parks
-            </p>
-          </div>
-
-          {/* Map Placeholder */}
-          <div className="bg-muted rounded-lg h-96 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="h-16 w-16 text-warm-accent mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                Interactive Map
-              </h3>
-              <p className="text-muted-foreground">
-                4224 E Prairie Ln Court, Spokane, WA 99223
-              </p>
-              <Button variant="trust" className="mt-4">
-                Get Directions
+              <MapPin
+                className="hidden h-16 w-16 shrink-0 text-warm-accent/70 sm:block"
+                aria-hidden="true"
+              />
+              <Button asChild variant="trust" className="shrink-0">
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=4224%20E%20Prairie%20Ln%20Court%2C%20Spokane%2C%20WA%2099223"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Get directions
+                </a>
               </Button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Emergency Contact */}
-      <section className="py-16 bg-gradient-to-br from-trust-blue to-trust-blue/80 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">24/7 Emergency Support</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            For urgent matters or emergencies involving current residents, our
-            staff is available around the clock
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="secondary" size="lg">
-              Call (913) 271-4783 / (509) 818-7552
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="bg-transparent border-white text-white hover:bg-white hover:text-trust-blue"
-            >
-              Family Portal Login
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Quick Links */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Common Questions
+        <section className="bg-trust-blue py-16 text-white md:py-20">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl">
+              24/7 Emergency Support
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Looking for quick answers? Check out our most frequently asked
-              questions
+            <p className="mx-auto mb-8 max-w-2xl text-base leading-7 opacity-90 md:text-lg">
+              For urgent matters or emergencies involving current residents, our
+              staff is available around the clock
             </p>
+            <div className="flex flex-col justify-center gap-3 sm:flex-row">
+              <Button asChild variant="secondary" size="lg">
+                <a href="tel:9132714783">Call (913) 271-4783</a>
+              </Button>
+              <Button asChild variant="secondary" size="lg">
+                <a href="tel:5098187552">Call (509) 818-7552</a>
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="lg"
+                className="border-white bg-transparent text-white hover:bg-white hover:text-trust-blue"
+                disabled
+                aria-disabled="true"
+              >
+                Family portal unavailable
+              </Button>
+            </div>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-foreground mb-2">
-                  What's included in the cost?
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Learn about our comprehensive care packages and what's
-                  included
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-foreground mb-2">
-                  How do I schedule a tour?
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Easy steps to visit our facility and meet our team
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-foreground mb-2">
-                  What should I bring?
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Packing checklist for moving in to Golden Days AFH
-                </p>
-              </CardContent>
-            </Card>
+        </section>
+
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="mb-10 max-w-2xl">
+              <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">
+                Common Questions
+              </h2>
+              <p className="text-base leading-7 text-muted-foreground md:text-lg">
+                Looking for quick answers? Check out our most frequently asked
+                questions
+              </p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              <Card className="h-full">
+                <CardContent className="p-6">
+                  <h3 className="mb-2 font-semibold text-foreground">
+                    What's included in the cost?
+                  </h3>
+                  <p className="text-base leading-6 text-muted-foreground">
+                    Learn about our comprehensive care packages and what's
+                    included
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="h-full">
+                <CardContent className="p-6">
+                  <h3 className="mb-2 font-semibold text-foreground">
+                    How do I schedule a tour?
+                  </h3>
+                  <p className="text-base leading-6 text-muted-foreground">
+                    Easy steps to visit our facility and meet our team
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="h-full">
+                <CardContent className="p-6">
+                  <h3 className="mb-2 font-semibold text-foreground">
+                    What should I bring?
+                  </h3>
+                  <p className="text-base leading-6 text-muted-foreground">
+                    Packing checklist for moving in to Golden Days AFH
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+            <div className="mt-8">
+              <Button type="button" variant="trust" disabled aria-disabled="true">
+                FAQs unavailable
+              </Button>
+            </div>
           </div>
-          <div className="text-center mt-8">
-            <Button variant="trust">View All FAQs</Button>
-          </div>
-        </div>
-      </section>
+        </section>
+      </main>
     </div>
   )
 }

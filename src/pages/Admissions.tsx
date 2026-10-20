@@ -1,205 +1,177 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
+import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Download, Calendar, FileText } from "lucide-react";
+import heroImage from "@/assets/hero-care-home.jpg";
+
+const checklist = [
+  "Complete admission application",
+  "Medical assessment and physician orders",
+  "Current medication list",
+  "Insurance information and financial documentation",
+  "Emergency contact information",
+  "Personal care preferences and dietary needs",
+  "Recent photos for identification",
+  "Power of attorney documents (if applicable)",
+  "Advanced directives and care preferences",
+  "Personal items and clothing list",
+];
+
+const processSteps = [
+  {
+    title: "Tour & Meet",
+    description: "Schedule a tour to meet our staff and see our facilities firsthand.",
+  },
+  {
+    title: "Assessment",
+    description: "Complete care assessment to determine the best fit for your loved one's needs.",
+  },
+  {
+    title: "Documentation",
+    description: "Complete required paperwork and gather necessary documents.",
+  },
+  {
+    title: "Move In",
+    description: "Smooth transition with our team supporting every step of the move-in process.",
+  },
+];
+
+const faqs = [
+  {
+    question: "How long does the admissions process take?",
+    answer:
+      "Typically 1-2 weeks from initial tour to move-in, depending on availability and document preparation.",
+  },
+  {
+    question: "What if my loved one has specific medical needs?",
+    answer:
+      "We conduct thorough assessments to ensure we can meet all care needs before admission.",
+  },
+  {
+    question: "Can we bring personal belongings?",
+    answer:
+      "Yes! We encourage personal items, furniture, and decorations to make the space feel like home.",
+  },
+  {
+    question: "What happens if care needs change?",
+    answer:
+      "We regularly reassess care needs and adjust our services accordingly to ensure appropriate care.",
+  },
+];
 
 const Admissions = () => {
-  const checklist = [
-    "Complete admission application",
-    "Medical assessment and physician orders",
-    "Current medication list",
-    "Insurance information and financial documentation",
-    "Emergency contact information",
-    "Personal care preferences and dietary needs",
-    "Recent photos for identification",
-    "Power of attorney documents (if applicable)",
-    "Advanced directives and care preferences",
-    "Personal items and clothing list"
-  ];
-
   return (
-    <div className="min-h-screen bg-background">
+    <div className="editorial-page min-h-screen bg-background">
       <Navigation />
-      
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-soft-gray to-background py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Admissions Process
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              Starting your journey with Golden Days AFH is simple. We're here to guide you every step of the way.
-            </p>
-            <Button variant="trust" size="lg">Schedule a Tour Today</Button>
-          </div>
-        </div>
-      </section>
 
-      {/* Process Steps */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Simple 4-Step Process</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our streamlined admissions process ensures a smooth transition for your loved one
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center">
-              <CardHeader>
-                <div className="mx-auto w-12 h-12 bg-trust-blue text-white rounded-full flex items-center justify-center mb-4">
-                  <span className="font-bold">1</span>
-                </div>
-                <CardTitle className="text-lg">Tour & Meet</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Schedule a tour to meet our staff and see our facilities firsthand.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="text-center">
-              <CardHeader>
-                <div className="mx-auto w-12 h-12 bg-trust-blue text-white rounded-full flex items-center justify-center mb-4">
-                  <span className="font-bold">2</span>
-                </div>
-                <CardTitle className="text-lg">Assessment</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Complete care assessment to determine the best fit for your loved one's needs.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="text-center">
-              <CardHeader>
-                <div className="mx-auto w-12 h-12 bg-trust-blue text-white rounded-full flex items-center justify-center mb-4">
-                  <span className="font-bold">3</span>
-                </div>
-                <CardTitle className="text-lg">Documentation</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Complete required paperwork and gather necessary documents.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="text-center">
-              <CardHeader>
-                <div className="mx-auto w-12 h-12 bg-trust-blue text-white rounded-full flex items-center justify-center mb-4">
-                  <span className="font-bold">4</span>
-                </div>
-                <CardTitle className="text-lg">Move In</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Smooth transition with our team supporting every step of the move-in process.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="Admissions Process"
+        description="Starting your journey with Golden Days AFH is simple. We're here to guide you every step of the way."
+        image={{
+          src: heroImage,
+          alt: "Comfortable living room at Golden Days Adult Family Home",
+        }}
+      >
+        <Button asChild variant="trust" size="lg">
+          <Link to="/contact#contact-form">Schedule a Tour Today</Link>
+        </Button>
+      </PageHero>
 
-      {/* Admissions Checklist */}
-      <section className="py-16 bg-soft-gray">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-3xl font-bold text-foreground mb-6">Admissions Checklist</h2>
-              <p className="text-muted-foreground mb-8">
-                To help ensure a smooth admissions process, please prepare the following items. 
-                Don't worry if you don't have everything - our team will help you gather what's needed.
+      <main>
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="mb-10 max-w-2xl">
+              <h2 className="mb-4 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+                Simple 4-Step Process
+              </h2>
+              <p className="text-lg leading-relaxed text-muted-foreground">
+                Our streamlined admissions process ensures a smooth transition for your loved one
               </p>
-              <div className="space-y-3">
-                {checklist.map((item, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-warm-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{item}</span>
+            </div>
+            <ol className="grid gap-x-8 border-t border-border md:grid-cols-2 lg:grid-cols-4">
+              {processSteps.map((step) => (
+                <li
+                  key={step.title}
+                  className="list-decimal border-b border-border py-8 pl-2 marker:font-semibold marker:text-warm-accent"
+                >
+                  <div className="pl-3">
+                    <h3 className="mb-3 text-xl font-semibold text-foreground">{step.title}</h3>
+                    <p className="leading-relaxed text-muted-foreground">{step.description}</p>
                   </div>
-                ))}
-              </div>
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <Button variant="trust" className="flex items-center gap-2">
-                  <Download className="h-4 w-4" />
-                  Download Checklist PDF
-                </Button>
-                <Button variant="outline" className="flex items-center gap-2">
-                  <FileText className="h-4 w-4" />
-                  Admission Forms
-                </Button>
-              </div>
-            </div>
-            <div>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Calendar className="h-5 w-5" />
-                    Schedule Your Visit
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ContactForm />
-                </CardContent>
-              </Card>
-            </div>
+                </li>
+              ))}
+            </ol>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FAQ Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Frequently Asked Questions</h2>
+        <section className="bg-soft-gray py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.85fr)] lg:gap-20">
+              <div>
+                <h2 className="mb-6 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+                  Admissions Checklist
+                </h2>
+                <p className="mb-8 text-lg leading-relaxed text-muted-foreground">
+                  To help ensure a smooth admissions process, please prepare the following items. Don&apos;t worry if you don&apos;t have everything - our team will help you gather what&apos;s needed.
+                </p>
+                <ul className="border-t border-border">
+                  {checklist.map((item) => (
+                    <li key={item} className="flex items-start gap-3 border-b border-border py-4 text-muted-foreground">
+                      <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-warm-accent" aria-hidden="true" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                  <Button variant="trust" disabled className="flex items-center gap-2">
+                    <Download className="h-4 w-4" aria-hidden="true" />
+                    Download Checklist PDF
+                  </Button>
+                  <Button variant="outline" disabled className="flex items-center gap-2">
+                    <FileText className="h-4 w-4" aria-hidden="true" />
+                    Admission Forms
+                  </Button>
+                </div>
+              </div>
+
+              <div id="schedule-visit">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Calendar className="h-5 w-5" aria-hidden="true" />
+                      Schedule Your Visit
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ContactForm />
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </div>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">How long does the admissions process take?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Typically 1-2 weeks from initial tour to move-in, depending on availability and document preparation.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">What if my loved one has specific medical needs?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  We conduct thorough assessments to ensure we can meet all care needs before admission.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Can we bring personal belongings?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Yes! We encourage personal items, furniture, and decorations to make the space feel like home.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">What happens if care needs change?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  We regularly reassess care needs and adjust our services accordingly to ensure appropriate care.
-                </p>
-              </CardContent>
-            </Card>
+        </section>
+
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="mb-10 max-w-2xl">
+              <h2 className="mb-4 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+                Frequently Asked Questions
+              </h2>
+            </div>
+            <div className="border-t border-border">
+              {faqs.map((faq) => (
+                <article key={faq.question} className="grid gap-3 border-b border-border py-7 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-12">
+                  <h3 className="text-xl font-semibold text-foreground">{faq.question}</h3>
+                  <p className="leading-relaxed text-muted-foreground">{faq.answer}</p>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
     </div>
   );
 };

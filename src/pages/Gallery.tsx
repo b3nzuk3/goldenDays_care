@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Navigation from '@/components/Navigation'
+import PageHero from '@/components/PageHero'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { ZoomIn, Home, Users, Coffee, Gamepad2, Loader2 } from 'lucide-react'
 
 interface Photo {
@@ -20,6 +26,8 @@ const Gallery = () => {
   const [photos, setPhotos] = useState<Photo[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
+  const photoTrigger = useRef<HTMLButtonElement | null>(null)
 
   const categories = [
     { id: 'all', name: 'All Photos', icon: <ZoomIn className="h-4 w-4" /> },
@@ -37,205 +45,226 @@ const Gallery = () => {
     },
   ]
 
-  useEffect(() => {
-    fetchPhotos()
-  }, [])
+  const fetchPhotos = useCallback(async (signal?: AbortSignal) => {
+    setLoading(true)
+    setError('')
+    setSelectedPhoto(null)
 
-  const fetchPhotos = async () => {
     try {
       const baseUrl =
         import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
-      const response = await fetch(`${baseUrl}/photos`)
-      const data = await response.json()
-      if (data.success) {
-        setPhotos(data.data.filter((photo: Photo) => photo.isActive))
-      } else {
-        setError('Failed to load photos')
+      const response = await fetch(`${baseUrl}/photos`, { signal })
+
+      if (!response.ok) {
+        throw new Error(`Photo request failed with status ${response.status}`)
       }
-    } catch (err) {
-      setError('Failed to load photos')
-      console.error('Error fetching photos:', err)
+
+      const data = await response.json()
+
+      if (!data.success || !Array.isArray(data.data)) {
+        throw new Error('Photo response did not match the expected format')
+      }
+
+      setPhotos(data.data.filter((photo: Photo) => photo.isActive))
+    } catch (fetchError) {
+      if (signal?.aborted) return
+
+      setError("We couldn't load the gallery right now. Please try again.")
+      console.error('Error fetching photos:', fetchError)
     } finally {
-      setLoading(false)
+      if (!signal?.aborted) {
+        setLoading(false)
+      }
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    const controller = new AbortController()
+    void fetchPhotos(controller.signal)
+
+    return () => controller.abort()
+  }, [fetchPhotos])
 
   const filteredPhotos =
     activeCategory === 'all'
       ? photos
       : photos.filter((photo) => photo.category === activeCategory)
 
-  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
-
   return (
-    <div className="min-h-screen bg-background">
+    <div className="editorial-page min-h-screen bg-background">
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-soft-gray to-background py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Photo Gallery
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              Take a virtual tour of our beautiful facility and see why families
-              choose Golden Days AFH
-            </p>
-            <Button variant="trust" size="lg">
-              Schedule an In-Person Tour
-            </Button>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="Photo Gallery"
+        description="Take a virtual tour of our beautiful facility and see why families choose Golden Days AFH"
+      >
+        <Button asChild variant="trust" size="lg">
+          <a href="/contact#contact-form">Schedule an in-person tour</a>
+        </Button>
+      </PageHero>
 
-      {/* Category Filter */}
-      <section className="py-8 border-b border-border">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((category) => (
-              <Button
-                key={category.id}
-                variant={activeCategory === category.id ? 'trust' : 'outline'}
-                onClick={() => setActiveCategory(category.id)}
-                className="flex items-center gap-2"
-              >
-                {category.icon}
-                {category.name}
-              </Button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Photo Grid */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          {loading ? (
-            <div className="flex items-center justify-center py-16">
-              <Loader2 className="h-8 w-8 animate-spin text-primary-600" />
-              <span className="ml-2 text-muted-foreground">
-                Loading photos...
-              </span>
-            </div>
-          ) : error ? (
-            <div className="text-center py-16">
-              <p className="text-red-600 mb-4">{error}</p>
-              <Button onClick={fetchPhotos} variant="outline">
-                Try Again
-              </Button>
-            </div>
-          ) : filteredPhotos.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="text-muted-foreground mb-4">
-                No photos available in this category.
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Photos will appear here once they are uploaded through the admin
-                dashboard.
-              </p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredPhotos.map((photo) => (
-                <Card
-                  key={photo._id}
-                  className="cursor-pointer hover:shadow-lg transition-shadow overflow-hidden"
-                  onClick={() => setSelectedPhoto(photo)}
+      <main>
+      <Dialog
+        open={Boolean(selectedPhoto)}
+        onOpenChange={(open) => {
+          if (!open) setSelectedPhoto(null)
+        }}
+      >
+        <section className="border-b border-border py-6 md:py-8">
+          <div className="container mx-auto px-4">
+            <div
+              className="flex flex-wrap gap-3"
+              role="group"
+              aria-label="Filter gallery by category"
+            >
+              {categories.map((category) => (
+                <Button
+                  key={category.id}
+                  type="button"
+                  variant={
+                    activeCategory === category.id ? 'trust' : 'outline'
+                  }
+                  onClick={() => setActiveCategory(category.id)}
+                  aria-pressed={activeCategory === category.id}
+                  className="flex items-center gap-2"
                 >
-                  <CardContent className="p-0">
-                    <div className="aspect-square bg-muted relative overflow-hidden">
-                      <img
-                        src={photo.imageUrl}
-                        alt={photo.title}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                        <ZoomIn className="h-8 w-8 text-white opacity-0 hover:opacity-100 transition-opacity duration-300" />
-                      </div>
-                      <div className="absolute top-2 left-2">
-                        <Badge
-                          variant="secondary"
-                          className="bg-white/90 text-foreground"
-                        >
-                          {
-                            categories.find((cat) => cat.id === photo.category)
-                              ?.name
-                          }
-                        </Badge>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-semibold text-foreground mb-1">
-                        {photo.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {photo.description}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
+                  {category.icon}
+                  {category.name}
+                </Button>
               ))}
             </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* Virtual Tour CTA */}
-      <section className="py-16 bg-soft-gray">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Ready to Visit?
-            </h2>
-            <p className="text-muted-foreground mb-8">
-              While photos show our beautiful facility, nothing replaces an
-              in-person visit. Schedule a tour to meet our staff, see our
-              amenities, and experience the warm atmosphere firsthand.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="trust" size="lg">
-                Schedule a Tour
-              </Button>
-              <Button variant="outline" size="lg">
-                Download Brochure
-              </Button>
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            {loading ? (
+              <div
+                className="flex items-center justify-center py-16 text-muted-foreground"
+                role="status"
+                aria-live="polite"
+              >
+                <Loader2
+                  className="h-6 w-6 animate-spin text-warm-accent"
+                  aria-hidden="true"
+                />
+                <span className="ml-3 text-base">Loading photos...</span>
+              </div>
+            ) : error ? (
+              <div className="py-16 text-center" role="alert">
+                <p className="mb-5 text-base text-muted-foreground">{error}</p>
+                <Button
+                  type="button"
+                  onClick={() => void fetchPhotos()}
+                  variant="outline"
+                >
+                  Try again
+                </Button>
+              </div>
+            ) : filteredPhotos.length === 0 ? (
+              <div className="py-16 text-center">
+                <p className="text-base text-muted-foreground">
+                  No photos are available in this category yet.
+                </p>
+              </div>
+            ) : (
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {filteredPhotos.map((photo) => {
+                  const categoryName =
+                    categories.find((category) => category.id === photo.category)
+                      ?.name || photo.category
+
+                  return (
+                    <button
+                      key={photo._id}
+                      type="button"
+                      onClick={(event) => { photoTrigger.current = event.currentTarget; setSelectedPhoto(photo) }}
+                      aria-label={`View ${photo.title}`}
+                      className="group w-full overflow-hidden rounded-2xl border border-border bg-background text-left shadow-sm transition-shadow hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    >
+                      <span className="relative block aspect-square overflow-hidden bg-muted">
+                        <img
+                          src={photo.imageUrl}
+                          alt={photo.title}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/20">
+                          <ZoomIn
+                            className="h-8 w-8 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                            aria-hidden="true"
+                          />
+                          <span className="sr-only">Open photo</span>
+                        </span>
+                        <span className="absolute left-3 top-3 rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-foreground">
+                          {categoryName}
+                        </span>
+                      </span>
+                      <span className="block p-5">
+                        <span className="block font-semibold text-foreground">
+                          {photo.title}
+                        </span>
+                        <span className="mt-2 block text-base leading-6 text-muted-foreground">
+                          {photo.description}
+                        </span>
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className="bg-soft-gray py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl">
+              <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">
+                Ready to Visit?
+              </h2>
+              <p className="mb-8 text-base leading-7 text-muted-foreground md:text-lg">
+                While photos show our beautiful facility, nothing replaces an
+                in-person visit. Schedule a tour to meet our staff, see our
+                amenities, and experience the warm atmosphere firsthand.
+              </p>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Button asChild variant="trust" size="lg">
+                  <a href="/contact#contact-form">Schedule a tour</a>
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="lg"
+                  disabled
+                  aria-disabled="true"
+                >
+                  Brochure unavailable
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Photo Modal */}
-      {selectedPhoto && (
-        <div
-          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedPhoto(null)}
-        >
-          <div className="max-w-4xl max-h-full bg-white rounded-lg overflow-hidden">
-            <div className="relative">
+        {selectedPhoto && (
+          <DialogContent className="max-w-4xl overflow-hidden p-0 sm:rounded-2xl" onCloseAutoFocus={(event) => { event.preventDefault(); photoTrigger.current?.focus() }}>
+            <div className="bg-background">
               <img
                 src={selectedPhoto.imageUrl}
                 alt={selectedPhoto.title}
-                className="w-full h-auto max-h-[70vh] object-contain"
+                className="max-h-[70vh] w-full object-contain"
               />
-              <button
-                onClick={() => setSelectedPhoto(null)}
-                className="absolute top-4 right-4 bg-black/50 text-white rounded-full p-2 hover:bg-black/70 transition-colors"
-              >
-                ×
-              </button>
+              <div className="p-6 pr-14">
+                <DialogHeader className="space-y-2 text-left">
+                  <DialogTitle>{selectedPhoto.title}</DialogTitle>
+                  <DialogDescription>
+                    {selectedPhoto.description}
+                  </DialogDescription>
+                </DialogHeader>
+              </div>
             </div>
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                {selectedPhoto.title}
-              </h3>
-              <p className="text-muted-foreground">
-                {selectedPhoto.description}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+          </DialogContent>
+        )}
+      </Dialog>
+      </main>
     </div>
   )
 }

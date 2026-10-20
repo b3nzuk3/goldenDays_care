@@ -46,8 +46,9 @@ const ContactForm: React.FC<ContactFormProps> = ({
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
       toast({
-        title: 'Message sent successfully!',
-        description: "We'll get back to you within 24 hours.",
+        title: 'Preview complete — message not sent',
+        description:
+          'This form is not connected to delivery yet. Please call or email us directly for a response.',
       })
 
       setFormData({
@@ -58,7 +59,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
         urgency: '',
         message: '',
       })
-    } catch (error) {
+    } catch {
       toast({
         title: 'Something went wrong',
         description: 'Please try again or call us directly at (913) 271-4783.',
@@ -74,60 +75,74 @@ const ContactForm: React.FC<ContactFormProps> = ({
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card
+      id={variant === 'contact' ? 'contact-form' : undefined}
+      className="contact-form mx-auto w-full max-w-2xl"
+    >
       <CardHeader>
-        <CardTitle className="text-2xl text-center text-foreground">
-          {title}
-        </CardTitle>
-        <p className="text-center text-muted-foreground">{subtitle}</p>
+        <CardTitle className="text-2xl text-foreground">{title}</CardTitle>
+        <p className="text-base leading-6 text-muted-foreground">{subtitle}</p>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <p className="mb-6 rounded-lg border border-border bg-soft-gray/50 p-3 text-sm leading-5 text-muted-foreground">
+          This is a preview form and does not send messages yet. Please call or
+          email us directly for a response.
+        </p>
+
+        <form onSubmit={handleSubmit} className="contact-form__fields space-y-6">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="name">Full Name *</Label>
               <Input
                 id="name"
+                name="name"
                 type="text"
+                autoComplete="name"
                 value={formData.name}
                 onChange={(e) => handleChange('name', e.target.value)}
                 required
-                aria-describedby="name-description"
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">Email Address *</Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
+                autoComplete="email"
                 value={formData.email}
                 onChange={(e) => handleChange('email', e.target.value)}
                 required
-                aria-describedby="email-description"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="phone">Phone Number</Label>
               <Input
                 id="phone"
+                name="phone"
                 type="tel"
+                autoComplete="tel"
+                inputMode="tel"
                 value={formData.phone}
                 onChange={(e) => handleChange('phone', e.target.value)}
-                placeholder="(913) 271-4783"
+                placeholder="Your phone number"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="relationship">
+              <Label id="relationship-label" htmlFor="relationship">
                 Relationship to Potential Resident
               </Label>
               <Select
                 value={formData.relationship}
                 onValueChange={(value) => handleChange('relationship', value)}
               >
-                <SelectTrigger>
+                <SelectTrigger
+                  id="relationship"
+                  aria-labelledby="relationship-label"
+                >
                   <SelectValue placeholder="Select relationship" />
                 </SelectTrigger>
                 <SelectContent>
@@ -149,12 +164,14 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
           {variant === 'admission' && (
             <div className="space-y-2">
-              <Label htmlFor="urgency">Timeline for Care Needs</Label>
+              <Label id="urgency-label" htmlFor="urgency">
+                Timeline for Care Needs
+              </Label>
               <Select
                 value={formData.urgency}
                 onValueChange={(value) => handleChange('urgency', value)}
               >
-                <SelectTrigger>
+                <SelectTrigger id="urgency" aria-labelledby="urgency-label">
                   <SelectValue placeholder="Select timeline" />
                 </SelectTrigger>
                 <SelectContent>
@@ -184,6 +201,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
             </Label>
             <Textarea
               id="message"
+              name="message"
               value={formData.message}
               onChange={(e) => handleChange('message', e.target.value)}
               placeholder={
@@ -200,25 +218,25 @@ const ContactForm: React.FC<ContactFormProps> = ({
             type="submit"
             variant="warm"
             size="lg"
-            className="w-full"
+            className="contact-form__submit w-full"
             disabled={isSubmitting}
           >
             {isSubmitting ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Sending...
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                Preparing preview...
               </>
             ) : (
-              'Send Message'
+              'Preview Message'
             )}
           </Button>
 
-          <p className="text-xs text-muted-foreground text-center">
+          <p className="text-center text-sm leading-5 text-muted-foreground">
             We respect your privacy and will never share your information with
             third parties. You can also call us directly at{' '}
             <a
               href="tel:9132714783"
-              className="text-warm-accent hover:underline"
+              className="text-warm-accent underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               (913) 271-4783
             </a>

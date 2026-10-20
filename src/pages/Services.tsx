@@ -1,192 +1,216 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
-import ServiceCard from "@/components/ServiceCard";
+import PageHero from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Home, Utensils, Activity, Stethoscope, Users, Clock } from "lucide-react";
+import privateRoomImage from "@/assets/private-room.jpg";
+
+const services = [
+  {
+    icon: Home,
+    title: "Personal Care",
+    description: "Assistance with daily activities including bathing, dressing, grooming, and mobility support.",
+    features: ["Bathing and hygiene assistance", "Dressing and grooming support", "Mobility assistance", "Personal safety monitoring"],
+  },
+  {
+    icon: Stethoscope,
+    title: "Medication Management",
+    description: "Professional medication administration and monitoring by trained staff.",
+    features: ["Medication administration", "Prescription management", "Health monitoring", "Doctor coordination"],
+  },
+  {
+    icon: Utensils,
+    title: "Nutritious Meals",
+    description: "Three home-cooked meals daily plus snacks, accommodating dietary restrictions and preferences.",
+    features: ["Three daily meals", "Healthy snacks", "Dietary accommodations", "Special diet planning"],
+  },
+  {
+    icon: Activity,
+    title: "Activities & Social",
+    description: "Engaging activities, outings, and social programs to maintain mental and physical wellness.",
+    features: ["Group activities", "Social events", "Outings and trips", "Cognitive stimulation"],
+  },
+  {
+    icon: Users,
+    title: "Family Support",
+    description: "Regular communication and support for families throughout the care journey.",
+    features: ["Regular updates", "Family meetings", "Care plan discussions", "24/7 communication"],
+  },
+  {
+    icon: Clock,
+    title: "24/7 Care",
+    description: "Round-the-clock supervision and care in a safe, comfortable environment.",
+    features: ["24-hour supervision", "Emergency response", "Night-time care", "Safety monitoring"],
+  },
+];
+
+const roomTypes = [
+  {
+    title: "Private Room",
+    description:
+      "Spacious private room with private bathroom, cable TV, and personalized décor options.",
+    features: ["Private bathroom", "Cable TV & WiFi", "Personal furniture welcome", "24/7 emergency call system"],
+  },
+  {
+    title: "Shared Room",
+    description:
+      "Comfortable shared accommodation with compatible roommate matching and privacy options.",
+    features: ["Shared bathroom", "Cable TV & WiFi", "Privacy curtains", "Personal storage space"],
+  },
+  {
+    title: "Memory Care",
+    description:
+      "Specialized rooms designed for residents with memory care needs and enhanced safety features.",
+    features: ["Enhanced safety features", "Memory care activities", "Specialized staff training", "Family communication tools"],
+  },
+];
+
+const pricingDetails = [
+  {
+    title: "Insurance & Benefits",
+    items: [
+      "Medicaid accepted",
+      "Veterans benefits",
+      "Long-term care insurance",
+      "Private pay options",
+      "Financial assistance available",
+    ],
+  },
+  {
+    title: "What's Included",
+    items: [
+      "All meals and snacks",
+      "Personal care services",
+      "Activities and outings",
+      "Laundry and housekeeping",
+      "24/7 supervision",
+    ],
+  },
+];
 
 const Services = () => {
-  const services = [
-    {
-      icon: Home,
-      title: "Personal Care",
-      description: "Assistance with daily activities including bathing, dressing, grooming, and mobility support.",
-      features: ["Bathing and hygiene assistance", "Dressing and grooming support", "Mobility assistance", "Personal safety monitoring"]
-    },
-    {
-      icon: Stethoscope,
-      title: "Medication Management",
-      description: "Professional medication administration and monitoring by trained staff.",
-      features: ["Medication administration", "Prescription management", "Health monitoring", "Doctor coordination"]
-    },
-    {
-      icon: Utensils,
-      title: "Nutritious Meals",
-      description: "Three home-cooked meals daily plus snacks, accommodating dietary restrictions and preferences.",
-      features: ["Three daily meals", "Healthy snacks", "Dietary accommodations", "Special diet planning"]
-    },
-    {
-      icon: Activity,
-      title: "Activities & Social",
-      description: "Engaging activities, outings, and social programs to maintain mental and physical wellness.",
-      features: ["Group activities", "Social events", "Outings and trips", "Cognitive stimulation"]
-    },
-    {
-      icon: Users,
-      title: "Family Support",
-      description: "Regular communication and support for families throughout the care journey.",
-      features: ["Regular updates", "Family meetings", "Care plan discussions", "24/7 communication"]
-    },
-    {
-      icon: Clock,
-      title: "24/7 Care",
-      description: "Round-the-clock supervision and care in a safe, comfortable environment.",
-      features: ["24-hour supervision", "Emergency response", "Night-time care", "Safety monitoring"]
-    }
-  ];
-
   return (
-    <div className="min-h-screen bg-background">
+    <div className="editorial-page min-h-screen bg-background">
       <Navigation />
-      
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-soft-gray to-background py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Our Care Services
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              Comprehensive, personalized care services designed around your loved one's unique needs
-            </p>
-            <Button variant="trust" size="lg">Schedule a Tour</Button>
-          </div>
-        </div>
-      </section>
 
-      {/* Services Grid */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <ServiceCard
-                key={index}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                features={service.features}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="Our Care Services"
+        description="Comprehensive, personalized care services designed around your loved one's unique needs"
+        image={{
+          src: privateRoomImage,
+          alt: "Private room at Golden Days Adult Family Home",
+        }}
+      >
+        <Button asChild variant="trust" size="lg">
+          <Link to="/contact#contact-form">Schedule a Tour</Link>
+        </Button>
+      </PageHero>
 
-      {/* Room Types */}
-      <section className="py-16 bg-soft-gray">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Room Types & Accommodations</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Comfortable, private accommodations designed for safety and comfort
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card>
-              <CardHeader>
-                <CardTitle>Private Room</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Spacious private room with private bathroom, cable TV, and personalized décor options.
-                </p>
-                <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• Private bathroom</li>
-                  <li>• Cable TV & WiFi</li>
-                  <li>• Personal furniture welcome</li>
-                  <li>• 24/7 emergency call system</li>
-                </ul>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Shared Room</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Comfortable shared accommodation with compatible roommate matching and privacy options.
-                </p>
-                <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• Shared bathroom</li>
-                  <li>• Cable TV & WiFi</li>
-                  <li>• Privacy curtains</li>
-                  <li>• Personal storage space</li>
-                </ul>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Memory Care</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Specialized rooms designed for residents with memory care needs and enhanced safety features.
-                </p>
-                <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• Enhanced safety features</li>
-                  <li>• Memory care activities</li>
-                  <li>• Specialized staff training</li>
-                  <li>• Family communication tools</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+      <main>
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="border-t border-border">
+              {services.map((service) => {
+                const Icon = service.icon;
 
-      {/* Pricing & Insurance */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Pricing & Insurance</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Transparent pricing with various payment options to make quality care accessible
-            </p>
+                return (
+                  <article
+                    key={service.title}
+                    className="grid gap-8 border-b border-border py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-12 md:py-10"
+                  >
+                    <div className="flex items-start gap-4">
+                      <Icon className="mt-1 h-6 w-6 shrink-0 text-warm-accent" aria-hidden="true" />
+                      <div>
+                        <h2 className="mb-3 text-2xl font-semibold tracking-tight text-foreground">
+                          {service.title}
+                        </h2>
+                        <p className="text-lg leading-relaxed text-muted-foreground">
+                          {service.description}
+                        </p>
+                      </div>
+                    </div>
+                    <ul className="grid gap-3 self-start sm:grid-cols-2 md:pt-1">
+                      {service.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-3 text-muted-foreground">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-warm-accent" aria-hidden="true" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                );
+              })}
+            </div>
           </div>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card>
-              <CardHeader>
-                <CardTitle>Insurance & Benefits</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li>• Medicaid accepted</li>
-                  <li>• Veterans benefits</li>
-                  <li>• Long-term care insurance</li>
-                  <li>• Private pay options</li>
-                  <li>• Financial assistance available</li>
-                </ul>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>What's Included</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li>• All meals and snacks</li>
-                  <li>• Personal care services</li>
-                  <li>• Activities and outings</li>
-                  <li>• Laundry and housekeeping</li>
-                  <li>• 24/7 supervision</li>
-                </ul>
-              </CardContent>
-            </Card>
+        </section>
+
+        <section className="bg-soft-gray py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="mb-10 max-w-2xl">
+              <h2 className="mb-4 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+                Room Types &amp; Accommodations
+              </h2>
+              <p className="text-lg leading-relaxed text-muted-foreground">
+                Comfortable, private accommodations designed for safety and comfort
+              </p>
+            </div>
+            <div className="border-t border-border">
+              {roomTypes.map((room) => (
+                <article
+                  key={room.title}
+                  className="grid gap-6 border-b border-border py-8 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-12"
+                >
+                  <h3 className="text-2xl font-semibold tracking-tight text-foreground">{room.title}</h3>
+                  <div>
+                    <p className="mb-5 text-lg leading-relaxed text-muted-foreground">{room.description}</p>
+                    <ul className="grid gap-3 text-muted-foreground sm:grid-cols-2">
+                      {room.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-3">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-warm-accent" aria-hidden="true" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
-          <div className="text-center mt-8">
-            <Button variant="trust" size="lg">Request Pricing Information</Button>
+        </section>
+
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="mb-10 max-w-2xl">
+              <h2 className="mb-4 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+                Pricing &amp; Insurance
+              </h2>
+              <p className="text-lg leading-relaxed text-muted-foreground">
+                Transparent pricing with various payment options to make quality care accessible
+              </p>
+            </div>
+            <div className="grid gap-10 border-t border-border md:grid-cols-2 md:gap-12">
+              {pricingDetails.map((detail) => (
+                <article key={detail.title} className="border-b border-border py-8 md:border-b-0">
+                  <h3 className="mb-5 text-2xl font-semibold tracking-tight text-foreground">{detail.title}</h3>
+                  <ul className="space-y-3 text-muted-foreground">
+                    {detail.items.map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-warm-accent" aria-hidden="true" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+            <div className="mt-10">
+              <Button asChild variant="trust" size="lg">
+                <Link to="/contact#contact-form">Request Pricing Information</Link>
+              </Button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
     </div>
   );
 };

@@ -1,0 +1,2 @@
+# Normalize bundled upstream font licenses without changing their text.
+public/fonts/*-OFL.txt text eol=lf

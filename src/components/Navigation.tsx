@@ -1,118 +1,70 @@
-import React, { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
+import { ArrowUpRight, MapPin, Menu, Phone, Sun, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Phone, MapPin } from 'lucide-react'
-import { cn } from '@/lib/utils'
+
+const navItems = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Services', href: '/services' },
+  { name: 'Admissions', href: '/admissions' },
+  { name: 'Staff', href: '/staff' },
+  { name: 'Testimonials', href: '/testimonials' },
+  { name: 'Gallery', href: '/gallery' },
+  { name: 'Contact', href: '/contact' },
+]
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const menuButton = useRef<HTMLButtonElement>(null)
+  const { pathname } = useLocation()
 
-  const navItems = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Admissions', href: '/admissions' },
-    { name: 'Staff', href: '/staff' },
-    { name: 'Testimonials', href: '/testimonials' },
-    { name: 'Gallery', href: '/gallery' },
-    { name: 'Contact', href: '/contact' },
-  ]
+  useEffect(() => { setIsOpen(false) }, [pathname])
+
+  useEffect(() => {
+    if (!isOpen) return
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+        menuButton.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', closeOnEscape)
+    return () => document.removeEventListener('keydown', closeOnEscape)
+  }, [isOpen])
 
   return (
-    <header className="bg-background shadow-sm border-b border-border sticky top-0 z-50">
-      {/* Top bar with contact info */}
-      <div className="bg-soft-gray">
-        <div className="container mx-auto px-4 py-2">
-          <div className="flex justify-between items-center text-sm text-muted-foreground">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1">
-                <Phone className="h-4 w-4" />
-                <span>(913) 271-4783 / (509) 818-7552</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <MapPin className="h-4 w-4" />
-                <span>4224 E Prairie Ln Court, Spokane, WA 99223</span>
-              </div>
-            </div>
-            <div className="hidden md:block">
-              <span>24/7 Care & Support</span>
-            </div>
-          </div>
+    <header className="site-header">
+      <a href="#page-content" className="skip-link">Skip to content</a>
+      <div className="contact-strip">
+        <div className="container contact-strip-inner">
+          <a href="https://www.google.com/maps/search/?api=1&query=4224+E+Prairie+Ln+Court+Spokane+WA+99223" target="_blank" rel="noreferrer" className="location-link">
+            <MapPin size={13} aria-hidden="true" />
+            <span>4224 E Prairie Ln Court, Spokane, WA</span>
+          </a>
+          <span className="care-hours">24/7 Care & Support</span>
+          <a href="tel:9132714783"><Phone size={13} aria-hidden="true" /><span>(913) 271-4783</span></a>
         </div>
       </div>
-
-      {/* Main navigation */}
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-primary">
-              Golden Days <span className="text-warm-accent">AFH</span>
-            </h1>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-foreground hover:text-warm-accent transition-colors duration-200 font-medium"
-              >
-                {item.name}
-              </a>
-            ))}
-          </nav>
-
-          {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <Button variant="trust" size="sm">
-              Schedule Tour
-            </Button>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="lg:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
-            >
-              {isOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <div
-          className={cn(
-            'lg:hidden border-t border-border',
-            isOpen ? 'block' : 'hidden'
-          )}
-        >
-          <nav className="py-4 space-y-2">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="block px-4 py-2 text-foreground hover:text-warm-accent hover:bg-soft-gray transition-colors duration-200"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.name}
-              </a>
-            ))}
-            <div className="px-4 pt-4">
-              <Button variant="trust" className="w-full">
-                Schedule Tour
-              </Button>
-            </div>
-          </nav>
-        </div>
+      <div className="container nav-inner">
+        <NavLink to="/" className="brand" aria-label="Golden Days Adult Family Home, home">
+          <Sun className="brand-sun" strokeWidth={1.3} aria-hidden="true" />
+          <span><span className="brand-name">Golden Days<span className="brand-dot">.</span></span><span className="brand-description">ADULT FAMILY HOME</span></span>
+        </NavLink>
+        <nav className="desktop-nav" aria-label="Main navigation">
+          {navItems.map(item => <NavLink key={item.href} to={item.href} end={item.href === '/'}>{item.name}</NavLink>)}
+        </nav>
+        <Button asChild variant="warm" className="nav-tour"><a href="/contact#contact-form">Schedule a Tour <ArrowUpRight aria-hidden="true" /></a></Button>
+        <Button ref={menuButton} className="menu-toggle" variant="ghost" size="icon" aria-label={isOpen ? 'Close menu' : 'Open menu'} aria-expanded={isOpen} aria-controls="mobile-navigation" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </Button>
       </div>
+      {isOpen && <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation">
+        <div className="container">
+          {navItems.map(item => <NavLink key={item.href} to={item.href} end={item.href === '/'} onClick={() => setIsOpen(false)}>{item.name}<ArrowUpRight size={17} aria-hidden="true" /></NavLink>)}
+          <Button asChild variant="warm" className="mt-5 w-full"><a href="/contact#contact-form">Schedule a Tour <ArrowUpRight aria-hidden="true" /></a></Button>
+        </div>
+      </nav>}
     </header>
   )
 }
