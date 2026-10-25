@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import Navigation from '@/components/Navigation'
 import ServiceCard from '@/components/ServiceCard'
 import ContactForm from '@/components/ContactForm'
+import HeroMotion from '@/components/HeroMotion'
 import heroCommunity from '@/assets/hero-community.webp'
 import './HomeHero.css'
 import { sitePhotos } from '@/data/site-photos'
@@ -34,7 +35,8 @@ const Index = () => (
             <div className="hero-actions"><Button asChild variant="warm" size="lg"><a href="/contact#contact-form">Schedule a Tour <ArrowUpRight aria-hidden="true" /></a></Button><Link to="/services" className="text-link">Explore our care <ArrowRight size={18} aria-hidden="true" /></Link></div>
             <a className="hero-location" href="/contact"><MapPin size={16} aria-hidden="true" /> A place to call home in Spokane, Washington</a>
           </div>
-          <figure className="hero-photo hero-photo--caption">
+          <figure className="hero-photo hero-photo--art">
+            <HeroMotion />
             <figcaption><span>Care that feels like family.</span><Link to="/about">Our home <ArrowUpRight size={17} aria-hidden="true" /></Link></figcaption>
           </figure>
         </div>
