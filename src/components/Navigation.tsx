@@ -14,12 +14,21 @@ const navItems = [
   { name: 'Contact', href: '/contact' },
 ]
 
-const Navigation = () => {
+const Navigation = ({ overlay = false }: { overlay?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const menuButton = useRef<HTMLButtonElement>(null)
   const { pathname } = useLocation()
 
   useEffect(() => { setIsOpen(false) }, [pathname])
+
+  useEffect(() => {
+    if (!overlay) return
+    const updateScroll = () => setIsScrolled(window.scrollY > 24)
+    updateScroll()
+    window.addEventListener('scroll', updateScroll, { passive: true })
+    return () => window.removeEventListener('scroll', updateScroll)
+  }, [overlay])
 
   useEffect(() => {
     if (!isOpen) return
@@ -34,7 +43,7 @@ const Navigation = () => {
   }, [isOpen])
 
   return (
-    <header className="site-header">
+    <header className={`site-header${overlay ? ' site-header--hero' : ''}`} data-scrolled={isScrolled}>
       <a href="#page-content" className="skip-link">Skip to content</a>
       <div className="contact-strip">
         <div className="container contact-strip-inner">

@@ -1,0 +1,89 @@
+/* Homepage-only image treatment; secondary page headers retain the cream shell. */
+.home-hero.home-hero--photographic {
+  position: relative;
+  isolation: isolate;
+  min-height: 820px;
+  min-height: min(900px, max(820px, 100svh));
+  display: flex;
+  align-items: center;
+  padding-block: 170px 48px;
+  color: hsl(var(--background));
+  background: hsl(26 23% 16%);
+}
+.home-hero--photographic .hero-background {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.home-hero--photographic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, hsl(26 23% 10% / .88), hsl(26 23% 10% / .75) 40%, hsl(26 23% 10% / .22) 76%), linear-gradient(180deg, hsl(26 23% 10% / .72), transparent 35%, transparent 70%, hsl(26 23% 10% / .5));
+}
+.home-hero--photographic .hero-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 40px;
+}
+.home-hero--photographic .hero-copy { max-width: 640px; padding-block: 20px 0; }
+.home-hero--photographic .hero-copy h1 { max-width: 13ch; }
+.home-hero--photographic .hero-copy h1 em { color: hsl(28 72% 79%); }
+.home-hero--photographic .hero-copy > p { color: hsl(40 38% 94%); }
+.home-hero--photographic .text-link,
+.home-hero--photographic .hero-location,
+.home-hero--photographic .hero-location svg { color: inherit; }
+.home-hero--photographic .hero-photo--caption figcaption {
+  padding-top: 18px;
+  border-top: 1px solid hsl(40 38% 97% / .35);
+  color: inherit;
+}
+.home-hero--photographic .hero-photo--caption figcaption > a { color: inherit; }
+.home-hero--photographic .hero-photo--caption figcaption > a:hover { background: transparent; text-decoration: underline; }
+.home-hero--photographic :focus-visible { outline-color: hsl(var(--background)); }
+
+.site-header.site-header--hero {
+  position: fixed;
+  inset: 0 0 auto;
+  background: transparent;
+  color: hsl(var(--background));
+  border-color: hsl(40 38% 97% / .25);
+  transition: background-color .2s ease, color .2s ease;
+}
+.site-header--hero .contact-strip { background: transparent; color: inherit; border-bottom: 1px solid hsl(40 38% 97% / .18); }
+.site-header--hero .brand { background: hsl(var(--background)); padding: 5px 8px; border-radius: 3px; }
+.site-header--hero .nav-inner { gap: 16px; }
+.site-header--hero .desktop-nav { gap: 16px; }
+.site-header--hero:not([data-scrolled='true']) .desktop-nav a:hover,
+.site-header--hero:not([data-scrolled='true']) .desktop-nav a[aria-current] { color: hsl(28 72% 79%); }
+.site-header--hero:not([data-scrolled='true']) .menu-toggle:hover { background: hsl(40 38% 97% / .15); color: inherit; }
+.site-header--hero:not([data-scrolled='true']) :focus-visible { outline-color: hsl(var(--background)); }
+.site-header--hero[data-scrolled='true'] { background: hsl(var(--background)); color: hsl(var(--foreground)); border-color: hsl(var(--border)); }
+.site-header--hero[data-scrolled='true'] .contact-strip { background: hsl(29 22% 90%); border-color: transparent; }
+.site-header--hero .mobile-nav { background: hsl(var(--background)); color: hsl(var(--foreground)); }
+.site-header--hero .mobile-nav :focus-visible { outline-color: hsl(var(--warm-accent)); }
+
+@media (max-width: 1023px) {
+  .home-hero.home-hero--photographic { min-height: 800px; padding-block: 150px 32px; }
+  .home-hero--photographic .hero-copy { max-width: 540px; }
+}
+@media (max-width: 767px) {
+  .home-hero.home-hero--photographic { min-height: 780px; min-height: max(780px, 100svh); padding-block: 140px 28px; }
+  .home-hero--photographic .hero-background { object-position: 58% center; }
+  .home-hero--photographic::before { background: linear-gradient(90deg, hsl(26 23% 10% / .83), hsl(26 23% 10% / .62)), linear-gradient(180deg, hsl(26 23% 10% / .4), transparent 45%); }
+  .home-hero--photographic .hero-layout { gap: 36px; }
+  .home-hero--photographic .hero-copy { padding-block: 12px 0; }
+  .home-hero--photographic .hero-copy h1 { max-width: 14ch; }
+  .home-hero--photographic .hero-location { font-size: 13px; line-height: 1.6; }
+  .site-header--hero .nav-inner { gap: 12px; }
+}
+@media (max-width: 374px) {
+  .site-header--hero .brand { padding-inline: 5px; }
+  .site-header--hero .nav-inner { gap: 8px; }
+}

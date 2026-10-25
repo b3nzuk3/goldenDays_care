@@ -10,7 +10,12 @@ not call the photo API or require the backend, database, or admin dashboard. Run
 - `public/images/gallery/`: WebP thumbnails (up to 640px) and full views (up to 1800px).
 - `src/data/site-photos.ts`: explicit photo selections for homepage supporting images
   and About, Services, Admissions, Staff, and Testimonials headers. These share the
-  gallery delivery URL. The original homepage hero is intentionally preserved;
+  gallery delivery URL. On `testing/hero-background`, the homepage instead uses the
+  owner-supplied community-room image (`src/assets/hero-community.webp`) behind both
+  the hero and navbar, with a readability scrim and an opaque header after scrolling.
+  This is a testing preview, not evidence that the pictured room or residents are
+  Golden Days; confirm image rights, resident consent, and suitability before publishing.
+  The earlier animated hero component remains available but is not mounted;
   Judy's profile uses initials until an identified portrait is supplied.
 - `scripts/prepare-gallery.py`: repeatable conversion from the reviewed 48-JPEG source set.
   Run `uv run --with pillow python scripts/prepare-gallery.py /home/luffy/goldenCarephotos`.

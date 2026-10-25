@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button'
 import Navigation from '@/components/Navigation'
 import ServiceCard from '@/components/ServiceCard'
 import ContactForm from '@/components/ContactForm'
-import HeroMotion from '@/components/HeroMotion'
+import heroCommunity from '@/assets/hero-community.webp'
+import './HomeHero.css'
 import { sitePhotos } from '@/data/site-photos'
 
 const services = [
@@ -22,9 +23,10 @@ const reasons = [
 
 const Index = () => (
   <div className="home-page min-h-screen bg-background">
-    <Navigation />
+    <Navigation overlay />
     <main id="page-content" tabIndex={-1}>
-      <section className="home-hero" aria-labelledby="home-heading">
+      <section className="home-hero home-hero--photographic" aria-labelledby="home-heading">
+        <img className="hero-background" src={heroCommunity} width="1024" height="572" alt="" fetchPriority="high" />
         <div className="container hero-layout">
           <div className="hero-copy">
             <h1 id="home-heading">Compassionate Care in a <em><span className="whitespace-nowrap">Home-like</span> Setting</em></h1>
@@ -32,8 +34,7 @@ const Index = () => (
             <div className="hero-actions"><Button asChild variant="warm" size="lg"><a href="/contact#contact-form">Schedule a Tour <ArrowUpRight aria-hidden="true" /></a></Button><Link to="/services" className="text-link">Explore our care <ArrowRight size={18} aria-hidden="true" /></Link></div>
             <a className="hero-location" href="/contact"><MapPin size={16} aria-hidden="true" /> A place to call home in Spokane, Washington</a>
           </div>
-          <figure className="hero-photo">
-            <HeroMotion />
+          <figure className="hero-photo hero-photo--caption">
             <figcaption><span>Care that feels like family.</span><Link to="/about">Our home <ArrowUpRight size={17} aria-hidden="true" /></Link></figcaption>
           </figure>
         </div>
