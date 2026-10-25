@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, Sun } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 
 const Footer = () => (
   <footer className="site-footer">
     <div className="container">
       <div className="footer-grid">
         <div className="footer-intro">
-          <Link to="/" className="brand"><Sun className="brand-sun" strokeWidth={1.3} aria-hidden="true" /><span><span className="brand-name">Golden Days<span className="brand-dot">.</span></span><span className="brand-description">ADULT FAMILY HOME</span></span></Link>
+          <Link to="/" className="brand" aria-label="Golden Days Adult Family Home, home"><img className="brand-logo" src="/images/golden-days-logo.svg" width="1360" height="684" alt="Golden Days Adult Family Home" /></Link>
           <p>Providing compassionate, dignified care in a home-like environment since 2015.</p>
         </div>
         <div>

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import Navigation from '@/components/Navigation'
 import ServiceCard from '@/components/ServiceCard'
 import ContactForm from '@/components/ContactForm'
-import heroImage from '@/assets/hero-care-home.jpg'
+import HeroMotion from '@/components/HeroMotion'
 import { sitePhotos } from '@/data/site-photos'
 
 const services = [
@@ -33,7 +33,7 @@ const Index = () => (
             <a className="hero-location" href="/contact"><MapPin size={16} aria-hidden="true" /> A place to call home in Spokane, Washington</a>
           </div>
           <figure className="hero-photo">
-            <img src={heroImage} alt="Residents sharing a warm conversation in a comfortable home setting" width={1200} height={675} fetchPriority="high" />
+            <HeroMotion />
             <figcaption><span>Care that feels like family.</span><Link to="/about">Our home <ArrowUpRight size={17} aria-hidden="true" /></Link></figcaption>
           </figure>
         </div>

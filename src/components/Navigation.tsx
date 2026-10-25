@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { ArrowUpRight, MapPin, Menu, Phone, Sun, X } from 'lucide-react'
+import { ArrowUpRight, MapPin, Menu, Phone, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const navItems = [
@@ -48,8 +48,8 @@ const Navigation = () => {
       </div>
       <div className="container nav-inner">
         <NavLink to="/" className="brand" aria-label="Golden Days Adult Family Home, home">
-          <Sun className="brand-sun" strokeWidth={1.3} aria-hidden="true" />
-          <span><span className="brand-name">Golden Days<span className="brand-dot">.</span></span><span className="brand-description">ADULT FAMILY HOME</span></span>
+          <img className="brand-logo" src="/images/golden-days-mark.svg" width="1220" height="410" alt="" />
+          <img className="brand-wordmark" src="/images/golden-days-wordmark.svg" width="1360" height="248" alt="Golden Days Adult Family Home" />
         </NavLink>
         <nav className="desktop-nav" aria-label="Main navigation">
           {navItems.map(item => <NavLink key={item.href} to={item.href} end={item.href === '/'}>{item.name}</NavLink>)}

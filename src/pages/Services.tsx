@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import PageHero from "@/components/PageHero";
+import ServiceCard from "@/components/ServiceCard";
 import { Button } from "@/components/ui/button";
 import { Home, Utensils, Activity, Stethoscope, Users, Clock } from "lucide-react";
 import { sitePhotos } from "@/data/site-photos";
@@ -104,39 +105,13 @@ const Services = () => {
       </PageHero>
 
       <main>
-        <section className="py-16 md:py-24">
+        <section className="py-16 md:py-24" aria-labelledby="care-services-heading">
           <div className="container mx-auto px-4">
-            <div className="border-t border-border">
-              {services.map((service) => {
-                const Icon = service.icon;
-
-                return (
-                  <article
-                    key={service.title}
-                    className="grid gap-8 border-b border-border py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-12 md:py-10"
-                  >
-                    <div className="flex items-start gap-4">
-                      <Icon className="mt-1 h-6 w-6 shrink-0 text-warm-accent" aria-hidden="true" />
-                      <div>
-                        <h2 className="mb-3 text-2xl font-semibold tracking-tight text-foreground">
-                          {service.title}
-                        </h2>
-                        <p className="text-lg leading-relaxed text-muted-foreground">
-                          {service.description}
-                        </p>
-                      </div>
-                    </div>
-                    <ul className="grid gap-3 self-start sm:grid-cols-2 md:pt-1">
-                      {service.features.map((feature) => (
-                        <li key={feature} className="flex items-start gap-3 text-muted-foreground">
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-warm-accent" aria-hidden="true" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                );
-              })}
+            <h2 id="care-services-heading" className="sr-only">Care services</h2>
+            <div className="service-grid">
+              {services.map((service) => (
+                <ServiceCard key={service.title} {...service} ctaText="Discuss care" />
+              ))}
             </div>
           </div>
         </section>

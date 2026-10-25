@@ -33,3 +33,6 @@ server/.env
 server/.env.*
 admin-dashboard/.env
 admin-dashboard/.env.*
+
+# Locally generated code graph, caches, and dated backups
+graphify-out/
