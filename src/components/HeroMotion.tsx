@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import sceneMarkup from '@/assets/golden-days-hero-scene.svg?raw'
 import './HeroMotion.css'
 
-const HeroMotion = () => {
+const HeroMotion = ({ cutout = false }: { cutout?: boolean }) => {
   const root = useRef<HTMLDivElement>(null)
   const scene = useRef<HTMLDivElement>(null)
   useLayoutEffect(() => {
@@ -52,7 +52,7 @@ const HeroMotion = () => {
   return (
     <div
       ref={root}
-      className="hero-motion"
+      className={`hero-motion${cutout ? ' hero-motion--cutout' : ''}`}
       onPointerMove={event => {
         if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
         const bounds = event.currentTarget.getBoundingClientRect()

@@ -32,20 +32,23 @@
     --card-foreground: 26 23% 20%;
     --popover: 40 38% 98%;
     --popover-foreground: 26 23% 20%;
-    --soft-gray: 37 28% 92%;
-    --soft-gray-foreground: 26 23% 20%;
+    --soft-gray: 90 23% 91%;
+    --soft-gray-foreground: 149 69% 18%;
     --primary: 26 23% 20%;
     --primary-foreground: 40 38% 97%;
-    --warm-accent: 15 45% 36%;
+    --brand-green: 149 69% 18%;
+    --brand-gold: 43 75% 61%;
+    --gold-ink: 40 76% 28%;
+    --warm-accent: var(--brand-green);
     --warm-accent-foreground: 40 38% 98%;
-    --trust-blue: 15 45% 36%;
+    --trust-blue: var(--brand-green);
     --trust-blue-foreground: 40 38% 98%;
     --muted: 37 24% 92%;
     --muted-foreground: 25 10% 39%;
-    --secondary: 36 28% 91%;
-    --secondary-foreground: 26 23% 20%;
-    --accent: 29 29% 89%;
-    --accent-foreground: 26 23% 20%;
+    --secondary: var(--brand-gold);
+    --secondary-foreground: var(--brand-green);
+    --accent: 47 70% 83%;
+    --accent-foreground: var(--brand-green);
     --destructive: 0 64% 40%;
     --destructive-foreground: 0 0% 100%;
     --success: 143 30% 30%;
@@ -54,10 +57,10 @@
     --warning-foreground: 0 0% 100%;
     --border: 30 19% 82%;
     --input: 30 19% 75%;
-    --ring: 15 45% 36%;
+    --ring: var(--brand-green);
     --radius: 0.375rem;
     --shadow-soft: 0 10px 30px -16px hsl(26 23% 20% / .16);
-    --shadow-warm: 0 10px 28px -16px hsl(15 45% 36% / .2);
+    --shadow-warm: 0 10px 28px -16px hsl(var(--brand-green) / .2);
     --transition-smooth: color .2s ease, background-color .2s ease;
   }
   * { @apply border-border; }
@@ -65,7 +68,7 @@
   body { @apply bg-background text-foreground; font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
   button, input, textarea, select { font: inherit; }
   input, textarea { caret-color: hsl(var(--warm-accent)); }
-  ::selection { background: hsl(18 47% 81%); color: hsl(var(--foreground)); }
+  ::selection { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
   :focus-visible { outline: 2px solid hsl(var(--warm-accent)); outline-offset: 5px; }
   a { text-underline-offset: 5px; }
   img { max-width: 100%; }
@@ -90,7 +93,7 @@ p a { text-decoration: underline; }
 
 /* Public storefront shell. The admin app owns a separate stylesheet. */
 .site-header { position: sticky; top: 0; z-index: 40; background: hsl(var(--background)); border-bottom: 1px solid hsl(var(--border)); }
-.contact-strip { background: hsl(29 22% 90%); font-size: 12px; color: hsl(26 16% 34%); }
+.contact-strip { background: hsl(var(--soft-gray)); font-size: 12px; color: hsl(var(--soft-gray-foreground)); }
 .contact-strip-inner { min-height: 35px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .contact-strip a { display: inline-flex; align-items: center; gap: 7px; }
 .contact-strip a:hover { text-decoration: underline; }
@@ -140,7 +143,7 @@ p a { text-decoration: underline; }
 .service-entry:first-child { background: hsl(var(--soft-gray)); }
 .service-entry:focus-within { border-color: hsl(var(--warm-accent)); box-shadow: 0 12px 30px -20px hsl(var(--warm-accent) / .25); }
 @media (hover: hover) { .service-entry:hover { border-color: hsl(var(--warm-accent) / .6); box-shadow: 0 12px 30px -20px hsl(var(--warm-accent) / .25); } }
-.service-icon { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 14px 14px 26px 14px; color: hsl(var(--warm-accent)); background: hsl(var(--warm-accent) / .08); margin-bottom: 28px; }
+.service-icon { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 14px 14px 26px 14px; color: hsl(var(--warm-accent)); background: hsl(var(--accent)); margin-bottom: 28px; }
 .service-entry h3 { font-size: 26px; margin-bottom: 17px; }
 .service-entry > p { font-size: 16px; color: hsl(var(--muted-foreground)); line-height: 1.75; }
 .service-entry ul { margin-block: 24px 28px; list-style: none; }
@@ -221,7 +224,7 @@ p a { text-decoration: underline; }
 .footer-intro > p { max-width: 29ch; margin-top: 22px; }
 .site-footer nav > a, .footer-grid > div > a:not(.brand) { display: block; font-size: 14px; color: hsl(32 18% 80%); margin-bottom: 10px; overflow-wrap: anywhere; }
 .site-footer a:hover { color: hsl(var(--background)); text-decoration: underline; }
-.footer-grid > div > a.footer-tour { display: inline-flex; align-items: center; gap: 8px; color: hsl(22 43% 77%); margin-top: 10px; }
+.footer-grid > div > a.footer-tour { display: inline-flex; align-items: center; gap: 8px; color: hsl(var(--brand-gold)); margin-top: 10px; }
 .site-footer .footer-certification { font-size: 11px; margin-top: 15px; }
 .site-footer a[href^="mailto:"] { overflow-wrap: normal; }
 .footer-bottom { padding-block: 22px; display: flex; gap: 20px; align-items: center; justify-content: space-between; border-top: 1px solid hsl(29 13% 32%); }

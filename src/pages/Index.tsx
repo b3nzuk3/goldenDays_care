@@ -36,7 +36,7 @@ const Index = () => (
             <a className="hero-location" href="/contact"><MapPin size={16} aria-hidden="true" /> A place to call home in Spokane, Washington</a>
           </div>
           <figure className="hero-photo hero-photo--art">
-            <HeroMotion />
+            <HeroMotion cutout />
             <figcaption><span>Care that feels like family.</span><Link to="/about">Our home <ArrowUpRight size={17} aria-hidden="true" /></Link></figcaption>
           </figure>
         </div>

@@ -27,25 +27,36 @@
   background: linear-gradient(90deg, hsl(26 23% 10% / .88), hsl(26 23% 10% / .75) 40%, hsl(26 23% 10% / .22) 76%), linear-gradient(180deg, hsl(26 23% 10% / .72), transparent 35%, transparent 70%, hsl(26 23% 10% / .5));
 }
 .home-hero--photographic .hero-layout {
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  align-items: center;
-  gap: 40px;
+  display: block;
 }
 .home-hero--photographic .hero-copy { max-width: 640px; min-width: 0; padding-block: 20px 0; }
 .home-hero--photographic .hero-copy h1 { max-width: 13ch; }
-.home-hero--photographic .hero-copy h1 em { color: hsl(28 72% 79%); }
+.home-hero--photographic .hero-copy h1 em { color: hsl(var(--brand-gold)); }
 .home-hero--photographic .hero-copy > p { color: hsl(40 38% 94%); }
 .home-hero--photographic .text-link,
 .home-hero--photographic .hero-location,
 .home-hero--photographic .hero-location svg { color: inherit; }
-.home-hero--photographic .hero-photo--art { align-self: center; }
-.home-hero--photographic .hero-motion { height: auto; aspect-ratio: 1; }
+.home-hero--photographic .hero-photo--art { margin-top: 40px; }
+.home-hero--photographic .hero-motion {
+  position: absolute;
+  right: max(32px, calc((100% - 1224px) / 2));
+  bottom: 108px;
+  width: clamp(220px, 22vw, 300px);
+  height: auto;
+  aspect-ratio: 1;
+}
 .home-hero--photographic .hero-motion > [role='img'] { position: absolute; inset: 0; }
-.home-hero--photographic .gd-hero-landscape { filter: drop-shadow(0 18px 28px hsl(26 23% 10% / .25)); }
-.home-hero--photographic .gd-hero-landscape > g[clip-path] > circle:first-child { opacity: .9; }
-.home-hero--photographic .hero-motion .gd-hero-orbit { stroke: hsl(36 65% 83%); opacity: .8; }
-.home-hero--photographic .hero-motion .gd-hero-orbit-dash { opacity: .5; }
+.home-hero--photographic .gd-hero-landscape { filter: drop-shadow(0 8px 14px hsl(26 23% 10% / .3)); }
+/* Keep the original artwork, but remove the badge's sky and orbital frame. */
+.hero-motion--cutout [data-scene='frame'],
+.hero-motion--cutout .gd-hero-landscape > g[clip-path] > circle,
+.hero-motion--cutout .gd-hero-landscape > g[clip-path] > g:not([class]),
+.hero-motion--cutout [data-scene='back'],
+.hero-motion--cutout [data-scene='middle'],
+.hero-motion--cutout [data-scene='front'],
+.hero-motion--cutout [data-scene='contours'] { display: none; }
+.hero-motion--cutout .gd-hero-landscape > g[clip-path] { clip-path: none; }
+.hero-motion--cutout .gd-hero-landscape { overflow: visible; }
 .home-hero--photographic .hero-photo--art figcaption {
   padding-top: 18px;
   border-top: 1px solid hsl(40 38% 97% / .35);
@@ -68,24 +79,26 @@
 .site-header--hero .nav-inner { gap: 16px; }
 .site-header--hero .desktop-nav { gap: 16px; }
 .site-header--hero:not([data-scrolled='true']) .desktop-nav a:hover,
-.site-header--hero:not([data-scrolled='true']) .desktop-nav a[aria-current] { color: hsl(28 72% 79%); }
+.site-header--hero:not([data-scrolled='true']) .desktop-nav a[aria-current] { color: hsl(var(--brand-gold)); }
 .site-header--hero:not([data-scrolled='true']) .menu-toggle:hover { background: hsl(40 38% 97% / .15); color: inherit; }
 .site-header--hero:not([data-scrolled='true']) :focus-visible { outline-color: hsl(var(--background)); }
 .site-header--hero[data-scrolled='true'] { background: hsl(var(--background)); color: hsl(var(--foreground)); border-color: hsl(var(--border)); }
-.site-header--hero[data-scrolled='true'] .contact-strip { background: hsl(29 22% 90%); border-color: transparent; }
+.site-header--hero[data-scrolled='true'] .contact-strip { background: hsl(var(--soft-gray)); border-color: transparent; }
 .site-header--hero .mobile-nav { background: hsl(var(--background)); color: hsl(var(--foreground)); }
 .site-header--hero .mobile-nav :focus-visible { outline-color: hsl(var(--warm-accent)); }
 
 @media (max-width: 1023px) {
   .home-hero.home-hero--photographic { min-height: 800px; padding-block: 150px 32px; }
-  .home-hero--photographic .hero-copy { max-width: 540px; }
+  .home-hero--photographic .hero-copy { max-width: 500px; }
+  .home-hero--photographic .hero-photo--art { padding-top: 240px; }
+  .home-hero--photographic .hero-motion { right: 24px; bottom: 100px; width: 220px; }
 }
 @media (max-width: 767px) {
   .home-hero.home-hero--photographic { min-height: 780px; min-height: max(780px, 100svh); padding-block: 140px 28px; }
   .home-hero--photographic .hero-background { object-position: 58% center; }
   .home-hero--photographic::before { background: linear-gradient(90deg, hsl(26 23% 10% / .83), hsl(26 23% 10% / .62)), linear-gradient(180deg, hsl(26 23% 10% / .4), transparent 45%); }
-  .home-hero--photographic .hero-layout { grid-template-columns: 1fr; gap: 28px; }
-  .home-hero--photographic .hero-photo--art { width: min(100%, 340px); justify-self: end; }
+  .home-hero--photographic .hero-photo--art { margin-top: 12px; padding-top: 220px; }
+  .home-hero--photographic .hero-motion { width: 200px; right: 16px; bottom: 94px; }
   .home-hero--photographic .hero-copy { padding-block: 12px 0; }
   .home-hero--photographic .hero-copy h1 { max-width: 14ch; }
   .home-hero--photographic .hero-location { font-size: 13px; line-height: 1.6; }

@@ -15,8 +15,9 @@ not call the photo API or require the backend, database, or admin dashboard. Run
   the hero and navbar, with a readability scrim and an opaque header after scrolling.
   This is a testing preview, not evidence that the pictured room or residents are
   Golden Days; confirm image rights, resident consent, and suitability before publishing.
-  The original animated sunrise is layered on the right over the photo and stacks
-  beneath the copy on phones, retaining its entrance, ambient motion, and reduced-motion fallback;
+  The animated sun and home appear as a small transparent cut-out in the bottom-right
+  corner, retaining their entrance, ambient motion, and reduced-motion fallback.
+  Site-wide component accents use forest green and gold through the shared CSS tokens;
   Judy's profile uses initials until an identified portrait is supplied.
 - `scripts/prepare-gallery.py`: repeatable conversion from the reviewed 48-JPEG source set.
   Run `uv run --with pillow python scripts/prepare-gallery.py /home/luffy/goldenCarephotos`.

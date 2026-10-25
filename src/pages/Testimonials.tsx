@@ -72,7 +72,7 @@ const renderStars = (rating: number) => {
         <Star
           key={index}
           className={`h-4 w-4 ${
-            index < rating ? "fill-amber-400 text-amber-400" : "text-gray-300"
+            index < rating ? "fill-[hsl(var(--brand-gold))] text-[hsl(var(--gold-ink))]" : "text-gray-300"
           }`}
           aria-hidden="true"
         />
@@ -94,7 +94,7 @@ const Testimonials = () => {
         <div className="flex flex-wrap items-center gap-2" aria-label="4.9 out of 5 stars (127 reviews)">
           <div className="flex gap-1" aria-hidden="true">
             {[...Array(5)].map((_, index) => (
-              <Star key={index} className="h-5 w-5 fill-amber-400 text-amber-400" />
+              <Star key={index} className="h-5 w-5 fill-[hsl(var(--brand-gold))] text-[hsl(var(--gold-ink))]" />
             ))}
           </div>
           <span className="text-2xl font-bold text-foreground">4.9</span>
