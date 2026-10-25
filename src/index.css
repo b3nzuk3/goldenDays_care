@@ -32,7 +32,7 @@
     --card-foreground: 26 23% 20%;
     --popover: 40 38% 98%;
     --popover-foreground: 26 23% 20%;
-    --soft-gray: 90 23% 91%;
+    --soft-gray: 0 0% 100%;
     --soft-gray-foreground: 149 69% 18%;
     --primary: 26 23% 20%;
     --primary-foreground: 40 38% 97%;
@@ -163,6 +163,11 @@ p a { text-decoration: underline; }
 .home-reasons li { display: flex; gap: 13px; margin-bottom: 20px; color: hsl(var(--muted-foreground)); font-size: 15px; }
 .home-reasons svg { color: hsl(var(--warm-accent)); flex-shrink: 0; margin-top: 4px; }
 .home-reasons strong { color: hsl(var(--foreground)); font-weight: 600; }
+/* Keep green emphasis on light surfaces, without recoloring photo or dark CTAs. */
+.home-page section:not(.home-hero):not(.home-visit) :is(h1, h2, h3, strong, b, .font-bold, .font-semibold),
+.editorial-page section:not(.bg-primary):not(.bg-trust-blue):not(.bg-gradient-to-br) :is(h1, h2, h3, strong, b, .font-bold, .font-semibold) {
+  color: hsl(var(--brand-green));
+}
 .testimonial-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 90px; }
 .testimonial-layout h2 { max-width: 12ch; margin-bottom: 25px; }
 .testimonial-layout blockquote { font-family: 'Lora', Georgia, serif; font-size: clamp(1.4rem, 2.15vw, 1.9rem); line-height: 1.65; letter-spacing: -.02em; }
