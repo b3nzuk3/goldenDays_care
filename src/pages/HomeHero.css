@@ -76,6 +76,9 @@
 }
 .site-header--hero .contact-strip { background: transparent; color: inherit; border-bottom: 1px solid hsl(40 38% 97% / .18); }
 .site-header--hero .brand { background: hsl(var(--background)); padding: 5px 8px; border-radius: 3px; }
+.hero-brand-filter { position: absolute; pointer-events: none; }
+.site-header--hero:not([data-scrolled='true']) .brand { background: transparent; }
+.site-header--hero:not([data-scrolled='true']) .brand img { filter: url('#hero-brand-outline'); }
 .site-header--hero .nav-inner { gap: 16px; }
 .site-header--hero .desktop-nav { gap: 16px; }
 .site-header--hero:not([data-scrolled='true']) .desktop-nav a:hover,

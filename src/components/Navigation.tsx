@@ -44,6 +44,19 @@ const Navigation = ({ overlay = false }: { overlay?: boolean }) => {
 
   return (
     <header className={`site-header${overlay ? ' site-header--hero' : ''}`} data-scrolled={isScrolled}>
+      {overlay && <svg className="hero-brand-filter" width="0" height="0" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="hero-brand-outline" x="-10%" y="-20%" width="120%" height="140%" colorInterpolationFilters="sRGB">
+            <feMorphology in="SourceAlpha" operator="dilate" radius="0.8" result="outline" />
+            <feFlood floodColor="hsl(40 38% 97%)" result="outline-color" />
+            <feComposite in="outline-color" in2="outline" operator="in" result="light-outline" />
+            <feMerge>
+              <feMergeNode in="light-outline" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>}
       <a href="#page-content" className="skip-link">Skip to content</a>
       <div className="contact-strip">
         <div className="container contact-strip-inner">
